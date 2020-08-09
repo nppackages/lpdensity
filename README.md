@@ -39,9 +39,11 @@ Working paper.
 ### Technical and Methodological
 
 - Cattaneo, Jansson and Ma (2020): [Simple Local Polynomial Density Estimators](https://rdpackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf).<br>
-_Journal of the American Statistical Association_, forthcoming. [Supplemental appendix](https://rdpackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA--Supplemental.pdf).
+_Journal of the American Statistical Association_, forthcoming.<br>
+[Supplemental appendix](https://rdpackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA--Supplemental.pdf).
 
 - Cattaneo, Jansson and Ma (2020): [Local Regression Distribution Estimators](https://rdpackages.github.io/references/Cattaneo-Jansson-Ma_2020_JoE.pdf).<br>
-Working paper. [Supplemental Appendix](https://rdpackages.github.io/references/Cattaneo-Jansson-Ma_2020_JoE--Supplemental.pdf).
+Working paper.<br>
+[Supplemental Appendix](https://rdpackages.github.io/references/Cattaneo-Jansson-Ma_2020_JoE--Supplemental.pdf).
 
 <br><br>
