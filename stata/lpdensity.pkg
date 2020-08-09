@@ -1,0 +1,30 @@
+v 0.2
+d STATA Package: LPDENSITY
+d 
+d Authors: Matias D. Cattaneo, Department of Operations Research and Financial Engineering, Princeton University, cattaneo@princeton.edu
+d          Michael Jansson, Department of Economics, UC-Berkeley, mjansson@econ.berkeley.edu
+d          Xinwei Ma, Department of Economics, UCSD, x1ma@ucsd.edu
+d
+d Date: 04-AGO-2020
+d 
+f lpbwdensity.ado
+f lpbwdensity.sthlp
+f lpdensity.ado
+f lpdensity.sthlp
+f lpdensity_bwIMSE.mo
+f lpdensity_bwIROT.mo
+f lpdensity_bwMSE.mo
+f lpdensity_bwROT.mo
+f lpdensity_Cgen.mo
+f lpdensity_fn.mo
+f lpdensity_fun.do
+f lpdensity_Ggen.mo
+f lpdensity_illustration.do
+f lpdensity_normDgp.mo
+f lpdensity_optFunc.mo
+f lpdensity_quantile.mo
+f lpdensity_rep.mo
+f lpdensity_Sgen.mo
+f lpdensity_Tgen.mo
+f lpdensity_unique.mo
+f lpdensity_whichmin.mo

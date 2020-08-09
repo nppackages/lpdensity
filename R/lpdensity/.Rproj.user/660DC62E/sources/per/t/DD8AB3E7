@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1596515149039.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1443872414",
+    "id" : "DD8AB3E7",
+    "lastKnownWriteTime" : 1596515264,
+    "last_content_update" : 1596515264155,
+    "path" : "~/Dropbox/0_Research/01_2017_LocPolDensity/Package_R_lpdensity/lpdensity/R/lpbwdensity.R",
+    "project_path" : "R/lpbwdensity.R",
+    "properties" : {
+        "cursorPosition" : "43,57",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
