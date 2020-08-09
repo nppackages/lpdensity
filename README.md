@@ -12,7 +12,7 @@ https://nppackages.github.io/lpdensity
 
 To install/update in Stata type:
 ```
-net install lpdensity, from(https://sites.google.com/site/nppackages/lpdensity/stata) replace
+net install lpdensity, from(https://raw.githubusercontent.com/nppackages/lpdensity/master/stata) replace
 ```
 
 - Help: [lpdensity](stata/lpdensity.pdf), [lpbwdensity](stata/lpbwdensity.pdf).
