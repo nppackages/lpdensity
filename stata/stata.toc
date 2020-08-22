@@ -1,7 +1,3 @@
-d LPDENSITY: Estimation and inference using local polynomial distribution/density regression methods.
-d            https://rdpackages.github.io/lpdensity
-
-v 2.0 
-
+v 2.1 
 p lpdensity
 

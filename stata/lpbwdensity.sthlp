@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 2.0 2020-08-04}{...}
+{* *! version 2.1 2020-08-22}{...}
 
 {title:Title}
 
@@ -37,19 +37,19 @@
 {title:Description}
 
 {p 4 8} {cmd:lpbwdensity} implements the bandwidth selection methods for local polynomial based density (and derivatives) estimation proposed and studied in 
-{browse "https://sites.google.com/site/nppackages/lpdensity/Cattaneo-Jansson-Ma_2020_JASA.pdf":Cattaneo, Jansson and Ma (2020a)}
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":Cattaneo, Jansson and Ma (2020a)}
 and
-{browse "https://sites.google.com/site/nppackages/lpdensity/Cattaneo-Jansson-Ma_2020_JoE.pdf":Cattaneo, Jansson and Ma (2020b)}. 
-See {browse "https://sites.google.com/site/nppackages/lpdensity/Cattaneo-Jansson-Ma_2020_JSS.pdf":Cattaneo, Jansson and Ma (2020c)} for more 
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JoE.pdf":Cattaneo, Jansson and Ma (2020b)}. 
+See {browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JSS.pdf":Cattaneo, Jansson and Ma (2020c)} for more 
 implementation details and illustrations.{p_end}
 
 {p 8 8} Companion command: {help lpdensity:lpdensity} for estimation and robust bias-corrected inference.{p_end}
 
-{p 8 8} Companion {browse "www.r-project.org":R} functions are also available {browse "https://sites.google.com/site/nppackages/lpdensity":here}.{p_end}
+{p 8 8} Companion {browse "www.r-project.org":R} functions are also available {browse "https://nppackages.github.io/lpdensity":here}.{p_end}
 
 {p 4 8} Related Stata and R packages are available in the following website:{p_end}
 
-{p 8 8} {browse "https://sites.google.com/site/nppackages/":https://sites.google.com/site/nppackages/}{p_end}
+{p 8 8} {browse "https://nppackages.github.io/":https://nppackages.github.io/}{p_end}
 
 
 {marker options}{...}
@@ -147,15 +147,15 @@ generated: {p_end}
 {title:References}
 
 {p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2020a.
-{browse "https://sites.google.com/site/nppackages/lpdensity/Cattaneo-Jansson-Ma_2020_JASA.pdf":Simple Local Polynomial Density Estimators}.{p_end}
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":Simple Local Polynomial Density Estimators}.{p_end}
 {p 8 8}{it:Journal of the American Statistical Association}, forthcoming.{p_end}
 
 {p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2020b.
-{browse "https://sites.google.com/site/nppackages/lpdensity/Cattaneo-Jansson-Ma_2020_JoE.pdf":Local Regression Distribution Estimators}.{p_end}
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JoE.pdf":Local Regression Distribution Estimators}.{p_end}
 {p 8 8}Working paper.{p_end}
 
 {p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2020c.
-{browse "https://sites.google.com/site/nppackages/lpdensity/Cattaneo-Jansson-Ma_2020_JSS.pdf":lpdensity: Local Polynomial Density Estimation and Inference}.{p_end}
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JSS.pdf":lpdensity: Local Polynomial Density Estimation and Inference}.{p_end}
 {p 8 8}Working paper.{p_end}
 
 {title:Authors}

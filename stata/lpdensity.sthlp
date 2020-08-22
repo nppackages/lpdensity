@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 2.0 2020-08-04}{...}
+{* *! version 2.1 2020-08-22}{...}
 
 {title:Title}
 
@@ -54,21 +54,21 @@
 {title:Description}
 
 {p 4 8} {cmd:lpdensity} implements the local polynomial regression based density (and derivatives) estimator proposed in 
-{browse "https://sites.google.com/site/nppackages/lpdensity/Cattaneo-Jansson-Ma_2020_JASA.pdf":Cattaneo, Jansson and Ma (2020a)}.
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":Cattaneo, Jansson and Ma (2020a)}.
 Robust bias-corrected inference, both pointwise (confidence intervals) and uniform (confidence bands) are also implemented following the results in
-{browse "https://sites.google.com/site/nppackages/lpdensity/Cattaneo-Jansson-Ma_2020_JASA.pdf":Cattaneo, Jansson and Ma (2020a)}
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":Cattaneo, Jansson and Ma (2020a)}
 and
-{browse "https://sites.google.com/site/nppackages/lpdensity/Cattaneo-Jansson-Ma_2020_JoE.pdf":Cattaneo, Jansson and Ma (2020b)}. 
-See {browse "https://sites.google.com/site/nppackages/lpdensity/Cattaneo-Jansson-Ma_2020_JSS.pdf":Cattaneo, Jansson and Ma (2020c)} for more 
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JoE.pdf":Cattaneo, Jansson and Ma (2020b)}. 
+See {browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JSS.pdf":Cattaneo, Jansson and Ma (2020c)} for more 
 implementation details and illustrations.{p_end}
 
 {p 8 8} Companion command: {help lpbwdensity:lpbwdensity} for bandwidth selection.{p_end}
 
-{p 8 8} Companion {browse "www.r-project.org":R} functions are also available {browse "https://sites.google.com/site/nppackages/lpdensity":here}.{p_end}
+{p 8 8} Companion {browse "www.r-project.org":R} functions are also available {browse "https://nppackages.github.io/lpdensity":here}.{p_end}
 
 {p 4 8} Related Stata and R packages are available in the following website:{p_end}
 
-{p 8 8} {browse "https://sites.google.com/site/nppackages/":https://sites.google.com/site/nppackages/}{p_end}
+{p 8 8} {browse "https://nppackages.github.io/":https://nppackages.github.io/}{p_end}
 
 
 {marker options}{...}
@@ -203,11 +203,11 @@ and
 to be equal results on centered at the point estimate confidence intervals/bands, but requires undersmoothing for valid inference (i.e., (I)MSE-optimal bandwdith for the density point estimator cannot be used). Hence the bandwidth would need to be specified manually when
 {cmd:q(}{it:#}{cmd:)} = {cmd:p(}{it:#}{cmd:)},
 and the point estimates will not be (I)MSE optimal. See Cattaneo, Jansson and Ma
-({browse "https://sites.google.com/site/nppackages/lpdensity/Cattaneo-Jansson-Ma_2020_JASA.pdf":2020a},
-{browse "https://sites.google.com/site/nppackages/lpdensity/Cattaneo-Jansson-Ma_2020_JoE.pdf":2020b})
+({browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":2020a},
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JoE.pdf":2020b})
 for details, and also Calonico, Cattaneo, and Farrell
-({browse "https://sites.google.com/site/nppackages/nprobust/Calonico-Cattaneo-Farrell_2018_JASA.pdf":2018},
-{browse "http://sites.google.com/site/nppackages/nprobust/Calonico-Cattaneo-Farrell_2020_CEopt.pdf":2020}) 
+({browse "https://nppackages.github.io/Calonico-Cattaneo-Farrell_2018_JASA.pdf":2018},
+{browse "https://nppackages.github.io/Calonico-Cattaneo-Farrell_2020_CEopt.pdf":2020}) 
 for robust bias correction methods. {p_end}
 
 {p 4 8}
@@ -267,23 +267,23 @@ Sometimes the density point estimates may lie outside of the confidence interval
 {title:References}
 
 {p 4 8}Calonico, S., M. D. Cattaneo, and M. H. Farrell. 2018.
-{browse "https://sites.google.com/site/nppackages/nprobust/Calonico-Cattaneo-Farrell_2018_JASA.pdf":On the Effect of Bias Estimation on Coverage Accuracy in Nonparametric Inference}.{p_end}
+{browse "https://nppackages.github.io/references/Calonico-Cattaneo-Farrell_2018_JASA.pdf":On the Effect of Bias Estimation on Coverage Accuracy in Nonparametric Inference}.{p_end}
 {p 8 8}{it:Journal of the American Statistical Association}, 113(522): 767-779.{p_end}
 
 {p 4 8}Calonico, S., M. D. Cattaneo, and M. H. Farrell. 2020.
-{browse "http://sites.google.com/site/nppackages/nprobust/Calonico-Cattaneo-Farrell_2020_CEopt.pdf":Coverage Error Optimal Confidence Intervals for Local Polynomial Regression}.{p_end}
+{browse "https://nppackages.github.io/references/Calonico-Cattaneo-Farrell_2020_CEopt.pdf":Coverage Error Optimal Confidence Intervals for Local Polynomial Regression}.{p_end}
 {p 8 8}Working paper.{p_end}
 
 {p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2020a.
-{browse "https://sites.google.com/site/nppackages/lpdensity/Cattaneo-Jansson-Ma_2020_JASA.pdf":Simple Local Polynomial Density Estimators}.{p_end}
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":Simple Local Polynomial Density Estimators}.{p_end}
 {p 8 8}{it:Journal of the American Statistical Association}, forthcoming.{p_end}
 
 {p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2020b.
-{browse "https://sites.google.com/site/nppackages/lpdensity/Cattaneo-Jansson-Ma_2020_JoE.pdf":Local Regression Distribution Estimators}.{p_end}
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JoE.pdf":Local Regression Distribution Estimators}.{p_end}
 {p 8 8}Working paper.{p_end}
 
 {p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2020c.
-{browse "https://sites.google.com/site/nppackages/lpdensity/Cattaneo-Jansson-Ma_2020_JSS.pdf":lpdensity: Local Polynomial Density Estimation and Inference}.{p_end}
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JSS.pdf":lpdensity: Local Polynomial Density Estimation and Inference}.{p_end}
 {p 8 8}Working paper.{p_end}
 
 {title:Authors}

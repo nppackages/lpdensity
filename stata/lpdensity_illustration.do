@@ -3,7 +3,7 @@
 * Matias D. Cattaneo, Michael Jansson, and Xinwei Ma
 * Replication Code
 *-------------------------------------------------------------------------------
-* net install rddensity, from(https://sites.google.com/site/nppackages/lpdensity/stata) replace
+* net install lpdensity, from(https://raw.githubusercontent.com/nppackages/lpdensity/master/stata) replace
 *-------------------------------------------------------------------------------
 clear all
 set more off
