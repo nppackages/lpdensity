@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 2.1 2020-08-22}{...}
+{* *! version 2.2 2020-09-01}{...}
 
 {title:Title}
 
@@ -268,7 +268,7 @@ Sometimes the density point estimates may lie outside of the confidence interval
 
 {p 4 8}Calonico, S., M. D. Cattaneo, and M. H. Farrell. 2018.
 {browse "https://nppackages.github.io/references/Calonico-Cattaneo-Farrell_2018_JASA.pdf":On the Effect of Bias Estimation on Coverage Accuracy in Nonparametric Inference}.{p_end}
-{p 8 8}{it:Journal of the American Statistical Association}, 113(522): 767-779.{p_end}
+{p 8 8}{it:Journal of the American Statistical Association} 113(522): 767-779.{p_end}
 
 {p 4 8}Calonico, S., M. D. Cattaneo, and M. H. Farrell. 2020.
 {browse "https://nppackages.github.io/references/Calonico-Cattaneo-Farrell_2020_CEopt.pdf":Coverage Error Optimal Confidence Intervals for Local Polynomial Regression}.{p_end}
@@ -276,7 +276,7 @@ Sometimes the density point estimates may lie outside of the confidence interval
 
 {p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2020a.
 {browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":Simple Local Polynomial Density Estimators}.{p_end}
-{p 8 8}{it:Journal of the American Statistical Association}, forthcoming.{p_end}
+{p 8 8}{it:Journal of the American Statistical Association} 115(531): 1449-1455.{p_end}
 
 {p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2020b.
 {browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JoE.pdf":Local Regression Distribution Estimators}.{p_end}

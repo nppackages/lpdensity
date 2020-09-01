@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 2.1 2020-08-22}{...}
+{* *! version 2.2 2020-09-01}{...}
 
 {title:Title}
 
@@ -148,7 +148,7 @@ generated: {p_end}
 
 {p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2020a.
 {browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":Simple Local Polynomial Density Estimators}.{p_end}
-{p 8 8}{it:Journal of the American Statistical Association}, forthcoming.{p_end}
+{p 8 8}{it:Journal of the American Statistical Association} 115(531): 1449-1455.{p_end}
 
 {p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2020b.
 {browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JoE.pdf":Local Regression Distribution Estimators}.{p_end}
