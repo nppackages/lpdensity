@@ -108,7 +108,7 @@ plot(model2, alpha=0.1, CIuniform = TRUE, ylabel = "density") +
 #----------------------------------------
 
 model1bw <- lpbwdensity(data$v1, grid = seq(0, 4, 0.5))
-summary(model1bw) 
+summary(model1bw)
 
 #----------------------------------------
 # lpdensity(): automatic bandwidth
