@@ -44,6 +44,6 @@ _Journal of the American Statistical Association_, forthcoming.<br>
 
 - Cattaneo, Jansson and Ma (2021): [Local Regression Distribution Estimators](https://rdpackages.github.io/references/Cattaneo-Jansson-Ma_2021_JoE.pdf).<br>
 _Journal of Econometrics_, forthcoming.<br>
-[Supplemental Appendix](https://rdpackages.github.io/references/Cattaneo-Jansson-Ma_2021_JoE--Supplemental.pdf).
+[Supplemental Appendix](https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2021_JoE--Supplemental.pdf).
 
 <br><br>
