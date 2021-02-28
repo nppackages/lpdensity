@@ -27,7 +27,7 @@ install.packages('lpdensity')
 ```
 - Help: [R Manual](https://cran.r-project.org/web/packages/lpdensity/lpdensity.pdf), [CRAN repository](https://cran.r-project.org/package=lpdensity).
 
-- Replication: [R-script](R/lpdensity_illustration.r).
+- Replication: [R-script](R/lpdensity_illustration.R).
 
 ## References
 
