@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 2.2 2020-09-01}{...}
+{* *!version 2.3 2021-02-28}{...}
 
 {title:Title}
 
@@ -54,12 +54,12 @@
 {title:Description}
 
 {p 4 8} {cmd:lpdensity} implements the local polynomial regression based density (and derivatives) estimator proposed in 
-{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":Cattaneo, Jansson and Ma (2020a)}.
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":Cattaneo, Jansson and Ma (2020)}.
 Robust bias-corrected inference, both pointwise (confidence intervals) and uniform (confidence bands) are also implemented following the results in
-{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":Cattaneo, Jansson and Ma (2020a)}
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":Cattaneo, Jansson and Ma (2020)}
 and
-{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JoE.pdf":Cattaneo, Jansson and Ma (2020b)}. 
-See {browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JSS.pdf":Cattaneo, Jansson and Ma (2020c)} for more 
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2021_JoE.pdf":Cattaneo, Jansson and Ma (2021a)}. 
+See {browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2021_JSS.pdf":Cattaneo, Jansson and Ma (2021b)} for more 
 implementation details and illustrations.{p_end}
 
 {p 8 8} Companion command: {help lpbwdensity:lpbwdensity} for bandwidth selection.{p_end}
@@ -203,8 +203,8 @@ and
 to be equal results on centered at the point estimate confidence intervals/bands, but requires undersmoothing for valid inference (i.e., (I)MSE-optimal bandwdith for the density point estimator cannot be used). Hence the bandwidth would need to be specified manually when
 {cmd:q(}{it:#}{cmd:)} = {cmd:p(}{it:#}{cmd:)},
 and the point estimates will not be (I)MSE optimal. See Cattaneo, Jansson and Ma
-({browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":2020a},
-{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JoE.pdf":2020b})
+({browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":2020},
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2021_JoE.pdf":2021a})
 for details, and also Calonico, Cattaneo, and Farrell
 ({browse "https://nppackages.github.io/Calonico-Cattaneo-Farrell_2018_JASA.pdf":2018},
 {browse "https://nppackages.github.io/Calonico-Cattaneo-Farrell_2020_CEopt.pdf":2020}) 
@@ -274,17 +274,17 @@ Sometimes the density point estimates may lie outside of the confidence interval
 {browse "https://nppackages.github.io/references/Calonico-Cattaneo-Farrell_2020_CEopt.pdf":Coverage Error Optimal Confidence Intervals for Local Polynomial Regression}.{p_end}
 {p 8 8}Working paper.{p_end}
 
-{p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2020a.
+{p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2020.
 {browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":Simple Local Polynomial Density Estimators}.{p_end}
 {p 8 8}{it:Journal of the American Statistical Association} 115(531): 1449-1455.{p_end}
 
-{p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2020b.
-{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JoE.pdf":Local Regression Distribution Estimators}.{p_end}
-{p 8 8}Working paper.{p_end}
+{p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2021a.
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2021_JoE.pdf":Local Regression Distribution Estimators}.{p_end}
+{p 8 8}{it:Journal of Econometrics}, forthcoming.{p_end}
 
-{p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2020c.
-{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JSS.pdf":lpdensity: Local Polynomial Density Estimation and Inference}.{p_end}
-{p 8 8}Working paper.{p_end}
+{p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2021b.
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2021_JSS.pdf":lpdensity: Local Polynomial Density Estimation and Inference}.{p_end}
+{p 8 8}{it:Journal of Statistical Software}, forthcoming.{p_end}
 
 {title:Authors}
 
