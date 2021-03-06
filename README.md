@@ -39,7 +39,7 @@ _Journal of Statistical Software_, forthcoming.
 ### Technical and Methodological
 
 - Cattaneo, Jansson and Ma (2020): [Simple Local Polynomial Density Estimators](https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf).<br>
-_Journal of the American Statistical Association_, forthcoming.<br>
+_Journal of the American Statistical Association_ 115(531): 1449-1455.<br>
 [Supplemental appendix](https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA--Supplement.pdf).
 
 - Cattaneo, Jansson and Ma (2021): [Local Regression Distribution Estimators](https://rdpackages.github.io/references/Cattaneo-Jansson-Ma_2021_JoE.pdf).<br>
