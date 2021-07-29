@@ -8,16 +8,9 @@ This work was supported by the National Science Foundation through grant [SES-14
 
 https://nppackages.github.io/lpdensity
 
-## Stata Implementation
+## Python Implementation
 
-To install/update in Stata type:
-```
-net install lpdensity, from(https://raw.githubusercontent.com/nppackages/lpdensity/master/stata) replace
-```
-
-- Help: [lpdensity](stata/lpdensity.pdf), [lpbwdensity](stata/lpbwdensity.pdf).
-
-- Replication: [do-file](stata/lpdensity_illustration.do).
+Coming soon.
 
 ## R Implementation
 
@@ -28,6 +21,17 @@ install.packages('lpdensity')
 - Help: [R Manual](https://cran.r-project.org/web/packages/lpdensity/lpdensity.pdf), [CRAN repository](https://cran.r-project.org/package=lpdensity).
 
 - Replication: [R-script](R/lpdensity_illustration.R).
+
+## Stata Implementation
+
+To install/update in Stata type:
+```
+net install lpdensity, from(https://raw.githubusercontent.com/nppackages/lpdensity/master/stata) replace
+```
+
+- Help: [lpdensity](stata/lpdensity.pdf), [lpbwdensity](stata/lpbwdensity.pdf).
+
+- Replication: [do-file](stata/lpdensity_illustration.do).
 
 ## References
 
