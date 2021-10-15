@@ -18,6 +18,9 @@ Rajita Chandak (maintainer) (<rchandak@princeton.edu>)
 
 https://nppackages.github.io/lpdensity/
 
+## ReadtheDocs Manual
+https://lpdensity.readthedocs.io/en/latest/
+
 ## Installation
 To install/update use pip
 ```
