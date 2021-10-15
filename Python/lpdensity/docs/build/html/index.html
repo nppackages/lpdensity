@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lpdensity Homepage &mdash; lpdensity 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="lpdensity" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> lpdensity
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">lpdensity</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">lpdensity</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>lpdensity Homepage</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="lpdensity-homepage">
+<h1>lpdensity Homepage<a class="headerlink" href="#lpdensity-homepage" title="Permalink to this headline"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">lpdensity</span></code> implements the local polynomial regression based density (and derivatives) estimator and bandwidth selection tools proposed in Cattaneo, Jansson and Ma (2020).  Robust bias-corrected inference methods,
+both pointwise (confidence intervals) and uniform (confidence bands), are also implemented
+following the results in Cattaneo, Jansson and Ma (2020, 2021a).
+See Cattaneo, Jansson and Ma (2021b) for more implementation details and illustrations.</p>
+<p>Install the <code class="docutils literal notranslate"><span class="pre">lpdensity</span></code> package by running
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">lpdensity</span></code>.</p>
+<p>Import density estimation and bandwidth selection functions by running the following lines</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">lpdensity</span> <span class="kn">import</span> <span class="n">lpdensity</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">lpdensity</span> <span class="kn">import</span> <span class="n">lpbwdensity</span>
+</pre></div>
+</div>
+<p>Related <code class="docutils literal notranslate"><span class="pre">Python</span></code>, <code class="docutils literal notranslate"><span class="pre">R</span></code> and <code class="docutils literal notranslate"><span class="pre">Stata</span></code> packages useful for nonparametric estimation and inference are
+available at <a class="reference external" href="https://nppackages.github.io/">https://nppackages.github.io/</a>.</p>
+<p>For source code and replication files, visit the <a class="reference external" href="https://github.com/nppackages/lpdensity/">lpdensity repository</a>.</p>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline"></a></h2>
+<p>Calonico, S., M. D. Cattaneo, and M. H. Farrell. 2018.
+<a class="reference external" href="https://nppackages.github.io/references/Calonico-Cattaneo-Farrell_2018_JASA.pdf">On the Effect of Bias Estimation on Coverage Accuracy in Nonparametric Inference</a>
+<em>Journal of the American Statistical Association</em>, 113(522): 767-779.</p>
+<p>Calonico, S., M. D. Cattaneo, and M. H. Farrell. 2020.
+<a class="reference external" href="https://nppackages.github.io/references/Calonico-Cattaneo-Farrell_2020_CEopt.pdf">Coverage Error Optimal Confidence Intervals for Local Polynomial Regression</a>
+. Working paper.</p>
+<p>Cattaneo, M. D., M. Jansson, and X. Ma. 2020.
+<a class="reference external" href="https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf">Simple Local Polynomial Density Estimators</a>.
+<em>Journal of the American Statistical Association</em>, 115(531): 1449-1455.</p>
+<p>Cattaneo, M. D., M. Jansson, and X. Ma. 2021a.
+<a class="reference external" href="https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2021_JoE.pdf">Local Regression Distribution Estimators</a>
+<em>Journal of Econometrics</em>, forthcoming.</p>
+<p>Cattaneo, M. D., M. Jansson, and X. Ma. 2021b.
+<a class="reference external" href="https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2021_JSS.pdf">lpdensity: Local Polynomial Density Estimation and Inference</a>
+<em>Journal of Statistical Software</em>, forthcoming.</p>
+</div>
+<div class="section" id="authors">
+<h2>Authors<a class="headerlink" href="#authors" title="Permalink to this headline"></a></h2>
+<p>Matias D. Cattaneo, Princeton University. (<a class="reference external" href="mailto:cattaneo&#37;&#52;&#48;princeton&#46;edu">cattaneo<span>&#64;</span>princeton<span>&#46;</span>edu</a>).</p>
+<p>Rajita Chandak (maintainer), Princeton University. (<a class="reference external" href="mailto:rchandak&#37;&#52;&#48;princeton&#46;edu">rchandak<span>&#64;</span>princeton<span>&#46;</span>edu</a>).</p>
+<p>Michael Jansson, University of California Berkeley. (<a class="reference external" href="mailto:mjansson&#37;&#52;&#48;econ&#46;berkeley&#46;edu">mjansson<span>&#64;</span>econ<span>&#46;</span>berkeley<span>&#46;</span>edu</a>).</p>
+<p>Xinwei Ma (maintainer), University of California San Diego. (<a class="reference external" href="mailto:x1ma&#37;&#52;&#48;ucsd&#46;edu">x1ma<span>&#64;</span>ucsd<span>&#46;</span>edu</a>).</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">lpdensity</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="lpdensity.html">lpdensity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lpbwdensity.html">lpbwdensity</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-right" title="lpdensity" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Rajita Chandak.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

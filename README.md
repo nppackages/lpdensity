@@ -10,7 +10,13 @@ https://nppackages.github.io/lpdensity
 
 ## Python Implementation
 
-Coming soon.
+To install/update in Python type:
+```
+pip install lpdensity
+```
+- Help: [Python Manual](https://lpdensity.readthedocs.io/), [PyPi repository](https://pypi.org/project/lpdensity/).
+
+- Replication: [py-script](Python/lpdensity_illustration.py).
 
 ## R Implementation
 

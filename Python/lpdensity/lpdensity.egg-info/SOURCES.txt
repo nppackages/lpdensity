@@ -1,0 +1,8 @@
+README.md
+pyproject.toml
+setup.cfg
+src/lpdensity.egg-info/PKG-INFO
+src/lpdensity.egg-info/SOURCES.txt
+src/lpdensity.egg-info/dependency_links.txt
+src/lpdensity.egg-info/requires.txt
+src/lpdensity.egg-info/top_level.txt
