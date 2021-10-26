@@ -1,0 +1,90 @@
+# Setting up Python package documentation with Sphinx and readthedocs.
+## Note: some of the commands in this may be specific to MacOS terminal.
+
+# Install sphinx with
+pip install -U Sphinx
+
+# navigate to project root directory
+# make a `docs` directory
+mkdir docs
+
+# move into docs directory
+cd docs
+
+# set up documentation with 
+sphinx-quickstart
+
+	separate source and build directories? y
+	project name: [package name]
+	author: [name]
+	project release: [project version]
+	project lang: [enter]
+
+# now to edit conf.py
+cd source
+
+# open conf.py
+# uncomment the sys lines
+import os
+import sys
+sys.path.insert(0, os.path.abspath('.')) 
+
+# edit abspath to source directory (where all .py files for the project are located), this will typically be '../../src/[packagename]'
+
+# add extensions
+sphinx.ext.autodoc
+sphinx.ext.napoleon
+
+# set html theme to
+sphinx_rtd_theme
+
+# Make .rst files corresponding to each page inside source/
+ index.rst 
+ [module].rst
+
+** all general documentation should be added to .rst files. Only function-depedent documentation should be pulled from *.py files.
+
+# in index.rst add:
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+  
+   modules
+
+
+# to add python documentation to a page, in the .rst file add
+.. autodoc:: [path.to.module] #typically looks like [packagename].[modulename]
+   :members: # includes all documented functions/classes
+   :undoc-members: #includes all undocumented functions/classes
+
+# additional tools on Sphinx:
+https://www.sphinx-doc.org/en/master/index.html
+
+# additional information on writing .rst files
+https://docutils.sourceforge.io/docs/user/rst/quickref.html
+https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html
+# to make html files
+# inside the `docs` directory run
+make html
+
+# note: this compiles from the package created -- any documention in the .py files that needs updating will require a re-compilation of the package. Re-install and then run `make html` to update.
+
+# to make pdf files
+# inside the `docs` directory from the terminal run
+make latexpdf 
+# note: this pdf is not very nicely formated.
+# use html whenever possible.
+
+**use `make clean` to clear all html/latex output. this is necessary when make html or make latexpdf produces an error.
+
+# instructions on adding to readthedocs from GitHub.
+https://docs.readthedocs.io/en/stable/tutorial/index.html
+
+# have a requirements.txt file with names of packages that 
+# are used in your package uder Python/[packagename]
+
+# need to have a .readthedocs.yaml file
+# in the main folder
+# follow the instructions here
+https://docs.readthedocs.io/en/stable/guides/reproducible-builds.html#using-a-configuration-file

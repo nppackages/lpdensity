@@ -166,8 +166,10 @@ def lpdensity(data, grid=None, bw=None, p=None, q=None, v=None,
 	# scale
 	if scale is None:
 		scale = 1
-	elif len(scale) != 1 or not np.isreal(scale) or scale <= 0:
+	elif len(scale) != 1 or not np.isreal(scale) or scale[0] <= 0:
 		raise Exception("Scale incorrectly specified.")
+	else:
+		scale = scale[0]
 
 	# regularize
 	if regularize is None:
@@ -289,7 +291,7 @@ class lpdensity_output:
 		self.grid_max = grid_max
 	
 	#summary output
-	def __repr__(self, CIuniform=False, alpha=0.05):
+	def __repr__(self):
 		print('Call: lpdensity')
 		print('')
 		fw = 30
@@ -303,6 +305,8 @@ class lpdensity_output:
 		print('Bandwidth Method:'.ljust(fw), str(self.bwselect).rjust(25))
 		print('')
 		
+		CIuniform=False
+		alpha=0.05
 		#critical value
 		ci_df = pd.DataFrame(columns=['CI_l_q', 'CI_r_q'])
 
