@@ -8,3 +8,5 @@ python:
   version: 3.7
   install:
     - requirements: Python/lpdensity/requirements.txt
+    - method: pip
+      path: Python/lpdensity
