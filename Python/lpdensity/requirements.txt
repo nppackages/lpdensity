@@ -4,3 +4,4 @@ scipy
 numpy.linalg
 sympy
 statistics
+plotnine
