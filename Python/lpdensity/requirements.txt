@@ -1,0 +1,8 @@
+numpy
+pandas
+math
+scipy
+numpy.linalg
+sympy
+statistics
+lpdensity
