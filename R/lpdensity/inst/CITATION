@@ -1,0 +1,20 @@
+bibentry(bibtype = "Article",
+  title        = "{lpdensity}: Local Polynomial Density Estimation and Inference",
+  author       = c(person(given = c("Matias", "D."),
+                          family = "Cattaneo",
+                          email = "cattaneo@princeton.edu"),
+                   person(given = "Michael",
+                          family = "Jansson",
+                          email = "mjansson@econ.berkeley.edu"),
+                   person(given = "Xinwei",
+                          family = "Ma",
+                          email = "x1ma@ucsd.edu")),
+  journal      = "Journal of Statistical Software",
+  year         = "2022",
+  volume       = "101",
+  number       = "2",
+  pages        = "1--25",
+  doi          = "10.18637/jss.v101.i02",
+  header       = "To cite lpdensity in publications use:"
+)
+

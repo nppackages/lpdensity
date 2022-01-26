@@ -1,5 +1,5 @@
 {smcl}
-{* *!version 2.3 2021-02-28}{...}
+{* *!version 2.4 2022-01-26}{...}
 
 {title:Title}
 
@@ -39,8 +39,8 @@
 {p 4 8} {cmd:lpbwdensity} implements the bandwidth selection methods for local polynomial based density (and derivatives) estimation proposed and studied in 
 {browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":Cattaneo, Jansson and Ma (2020)}
 and
-{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2021_JoE.pdf":Cattaneo, Jansson and Ma (2021a)}. 
-See {browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2021_JSS.pdf":Cattaneo, Jansson and Ma (2021b)} for more 
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2022_JoE.pdf":Cattaneo, Jansson and Ma (2022a)}. 
+See {browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2022_JSS.pdf":Cattaneo, Jansson and Ma (2022b)} for more 
 implementation details and illustrations.{p_end}
 
 {p 8 8} Companion command: {help lpdensity:lpdensity} for estimation and robust bias-corrected inference.{p_end}
@@ -150,13 +150,13 @@ generated: {p_end}
 {browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":Simple Local Polynomial Density Estimators}.{p_end}
 {p 8 8}{it:Journal of the American Statistical Association} 115(531): 1449-1455.{p_end}
 
-{p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2021a.
-{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JoE.pdf":Local Regression Distribution Estimators}.{p_end}
+{p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2022a.
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2022_JoE.pdf":Local Regression Distribution Estimators}.{p_end}
 {p 8 8}{it:Journal of Econometrics}, forthcoming.{p_end}
 
-{p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2021b.
-{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JSS.pdf":lpdensity: Local Polynomial Density Estimation and Inference}.{p_end}
-{p 8 8}{it:Journal of Statistical Software}, forthcoming.{p_end}
+{p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2022b.
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2022_JSS.pdf":lpdensity: Local Polynomial Density Estimation and Inference}.{p_end}
+{p 8 8}{it:Journal of Statistical Software}, forthcoming. Doi:10.18637/jss.v101.i02{p_end}
 
 
 {title:Authors}

@@ -1,11 +1,11 @@
-v 3
+v 4
 d STATA Package: LPDENSITY
 d 
 d Authors: Matias D. Cattaneo, Department of Operations Research and Financial Engineering, Princeton University, cattaneo@princeton.edu
 d          Michael Jansson, Department of Economics, UC-Berkeley, mjansson@econ.berkeley.edu
 d          Xinwei Ma, Department of Economics, UCSD, x1ma@ucsd.edu
 d
-d Distribution-Date: 20210228
+d Distribution-Date: 20220126
 d 
 f lpbwdensity.ado
 f lpbwdensity.sthlp
