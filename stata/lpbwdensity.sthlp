@@ -1,5 +1,5 @@
 {smcl}
-{* *!version 2.4 2022-01-26}{...}
+{* *!version 2.3 2022-01-26}{...}
 
 {title:Title}
 
@@ -40,7 +40,7 @@
 {browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":Cattaneo, Jansson and Ma (2020)}
 and
 {browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2022_JoE.pdf":Cattaneo, Jansson and Ma (2022a)}. 
-See {browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2022_JSS.pdf":Cattaneo, Jansson and Ma (2022b)} for more 
+See {browse "https://doi.org/10.18637/jss.v101.i02":Cattaneo, Jansson and Ma (2022b)} for more 
 implementation details and illustrations.{p_end}
 
 {p 8 8} Companion command: {help lpdensity:lpdensity} for estimation and robust bias-corrected inference.{p_end}
@@ -155,8 +155,9 @@ generated: {p_end}
 {p 8 8}{it:Journal of Econometrics}, forthcoming.{p_end}
 
 {p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2022b.
-{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2022_JSS.pdf":lpdensity: Local Polynomial Density Estimation and Inference}.{p_end}
-{p 8 8}{it:Journal of Statistical Software}, forthcoming. Doi:10.18637/jss.v101.i02{p_end}
+{browse "https://doi.org/10.18637/jss.v101.i02":lpdensity: Local Polynomial Density Estimation and Inference}.{p_end}
+{p 8 8}{it:Journal of Statistical Software} 101(2): 1-25.{p_end}
+
 
 
 {title:Authors}
