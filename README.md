@@ -44,7 +44,7 @@ net install lpdensity, from(https://raw.githubusercontent.com/nppackages/lpdensi
 ### Software and Implementation
 
 - Cattaneo, Jansson and Ma (2022): [lpdensity: Local Polynomial Density Estimation and Inference](https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2022_JSS.pdf).<br>
-_Journal of Statistical Software_, forthcoming.
+_Journal of Statistical Software_ 101(2): 1-25.
 
 ### Technical and Methodological
 
