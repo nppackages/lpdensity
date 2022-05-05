@@ -122,7 +122,7 @@ accordingly.}
 \item{legendGroups}{String vector, specifies the group names used in legend.}
 }
 \value{
-\item{}{A stadnard \code{ggplot} object is returned, hence can be used for further customization.}
+A stadnard \code{ggplot} object is returned, hence can be used for further customization.
 }
 \description{
 The plot method for local polynomial density objects.

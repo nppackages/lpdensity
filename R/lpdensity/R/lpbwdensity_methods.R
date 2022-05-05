@@ -185,7 +185,7 @@ summary.lpbwdensity <- function(object, ...) {
 #' @param ... Other arguments.
 #'
 #' @return
-#' \item{}{A matrix containing grid points and selected bandwidths.}
+#' A matrix containing grid points and selected bandwidths.
 #'
 #' @author
 #' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.

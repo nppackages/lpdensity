@@ -48,7 +48,7 @@ neighborhood.}
 each local neighborhood.}
 }
 \value{
-\item{}{Bandwidth sequence.}
+Numeric vector: a bandwidth sequence.
 }
 \description{
 Calculates rule-of-thumb bandwidth

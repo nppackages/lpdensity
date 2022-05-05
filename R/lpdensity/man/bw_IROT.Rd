@@ -46,7 +46,7 @@ should be corrected if there are mass points in the data.}
 \item{nUniqueMin}{Nonnegative integer, minimum number of unique observations in each local neighborhood.}
 }
 \value{
-\item{}{A single bandwidth.}
+Scalar: a single bandwidth.
 }
 \description{
 Calculates integrated rule-of-thumb bandwidth

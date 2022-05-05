@@ -352,7 +352,7 @@ summary.lpdensity <- function(object, ...) {
 #' @param legendGroups String vector, specifies the group names used in legend.
 #'
 #' @return
-#' \item{}{A stadnard \code{ggplot} object is returned, hence can be used for further customization.}
+#' A stadnard \code{ggplot} object is returned, hence can be used for further customization.
 #'
 #' @author
 #' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
@@ -799,7 +799,7 @@ plot.lpdensity <- function(..., alpha=NULL,
 #' @param legendGroups String vector, specifies the group names used in legend.
 #'
 #' @return
-#' \item{}{A stadnard \code{ggplot} object is returned, hence can be used for further customization.}
+#' A stadnard \code{ggplot} object is returned, hence can be used for further customization.
 #'
 #' @author
 #' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
@@ -820,7 +820,7 @@ lpdensity.plot <- plot.lpdensity
 #' @param ... Additional options.
 #'
 #' @return
-#' \item{}{A matrix containing grid points and density estimates using p- and q-th order local polynomials.}
+#' A matrix containing grid points and density estimates using p- and q-th order local polynomials.
 #'
 #' @author
 #' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
@@ -905,7 +905,7 @@ vcov.lpdensity <- function(object, ...) {
 #'   to construct critical values (default is 2000).
 #'
 #' @return
-#' \item{}{A matrix containing grid points and confidence interval end points using p- and q-th order local polynomials.}
+#' A matrix containing grid points and confidence interval end points using p- and q-th order local polynomials.
 #'
 #' @author
 #' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.

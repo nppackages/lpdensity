@@ -22,7 +22,7 @@ the uniform confidence band (\code{TRUE}); (v) \code{CIsimul} specifies the numb
 to construct critical values (default is 2000).}
 }
 \value{
-\item{}{A matrix containing grid points and confidence interval end points using p- and q-th order local polynomials.}
+A matrix containing grid points and confidence interval end points using p- and q-th order local polynomials.
 }
 \description{
 The confint method for local polynomial density objects.

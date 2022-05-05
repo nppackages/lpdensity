@@ -46,7 +46,7 @@ should be corrected if there are mass points in the data.}
 \item{nUniqueMin}{Nonnegative integer, minimum number of unique observations in each local neighborhood.}
 }
 \value{
-\item{}{Bandwidth sequence.}
+Numeric vector: bandwidth sequence.
 }
 \description{
 Calculates MSE-optimal bandwidths.

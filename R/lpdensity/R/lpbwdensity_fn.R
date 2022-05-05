@@ -46,7 +46,7 @@ lpdensityUnique <- function(x) {
 #' @param sd Strictly positive scalar, the standard deviation of the normal distribution.
 #'
 #' @return
-#' \item{}{Scalar.}
+#' A scalar corresponding to the value of the normal density function or derivatives thereof.
 #'
 #' @keywords internal
 normal_dgps <- function(x, v, mean, sd) {
@@ -72,7 +72,7 @@ normal_dgps <- function(x, v, mean, sd) {
 #' @param kernel String, the kernel function.
 #'
 #' @return
-#' \item{}{A (p+1)-by-(p+1) matrix.}
+#' A (p+1)-by-(p+1) matrix.
 #'
 #' @keywords internal
 Sgenerate <- function(p, low=-1, up=1, kernel="triangular") {
@@ -102,7 +102,7 @@ Sgenerate <- function(p, low=-1, up=1, kernel="triangular") {
 #' @param kernel String, the kernel function.
 #'
 #' @return
-#' \item{}{A (p+1)-by-(p+1) matrix.}
+#' A (p+1)-by-(p+1) matrix.
 #'
 #' @keywords internal
 Tgenerate <- function(p, low=-1, up=1, kernel="triangular") {
@@ -133,7 +133,7 @@ Tgenerate <- function(p, low=-1, up=1, kernel="triangular") {
 #' @param kernel String, the kernel function.
 #'
 #' @return
-#' \item{}{A (p+1)-by-1 matrix.}
+#' A (p+1)-by-1 matrix.
 #'
 #' @keywords internal
 Cgenerate <- function(k, p, low=-1, up=1, kernel="triangular") {
@@ -162,7 +162,7 @@ Cgenerate <- function(k, p, low=-1, up=1, kernel="triangular") {
 #' @param kernel String, the kernel function.
 #'
 #' @return
-#' \item{}{A (p+1)-by-(p+1) matrix.}
+#' A (p+1)-by-(p+1) matrix.
 #'
 #' @keywords internal
 Ggenerate <- function(p, low=-1, up=1, kernel="triangular") {
@@ -234,7 +234,7 @@ Ggenerate <- function(p, low=-1, up=1, kernel="triangular") {
 #'   each local neighborhood.
 #'
 #' @return
-#' \item{}{Bandwidth sequence.}
+#' Numeric vector: a bandwidth sequence.
 #'
 #' @keywords internal
 bw_ROT  <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, stdVar, regularize, nLocalMin, nUniqueMin) {
@@ -362,7 +362,7 @@ bw_ROT  <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, st
 #' @param nUniqueMin Nonnegative integer, minimum number of unique observations in each local neighborhood.
 #'
 #' @return
-#' \item{}{A single bandwidth.}
+#' Scalar: a single bandwidth.
 #'
 #' @keywords internal
 bw_IROT <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, stdVar, regularize, nLocalMin, nUniqueMin) {
@@ -490,7 +490,7 @@ bw_IROT <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, st
 #' @param nUniqueMin Nonnegative integer, minimum number of unique observations in each local neighborhood.
 #'
 #' @return
-#' \item{}{Bandwidth sequence.}
+#' Numeric vector: bandwidth sequence.
 #'
 #' @keywords internal
 bw_MSE  <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, stdVar, regularize, nLocalMin, nUniqueMin) {
@@ -770,7 +770,7 @@ bw_MSE  <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, st
 #' @param nUniqueMin Nonnegative integer, minimum number of unique observations in each local neighborhood.
 #'
 #' @return
-#' \item{}{A single bandwidth.}
+#' Scalar: a single bandwidth.
 #'
 #' @keywords internal
 bw_IMSE  <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, stdVar, regularize, nLocalMin, nUniqueMin) {

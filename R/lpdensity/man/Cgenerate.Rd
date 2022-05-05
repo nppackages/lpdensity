@@ -16,7 +16,7 @@ Cgenerate(k, p, low = -1, up = 1, kernel = "triangular")
 \item{kernel}{String, the kernel function.}
 }
 \value{
-\item{}{A (p+1)-by-1 matrix.}
+A (p+1)-by-1 matrix.
 }
 \description{
 Generate matrix.
