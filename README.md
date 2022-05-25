@@ -8,6 +8,10 @@ This work was supported by the National Science Foundation through grant [SES-14
 
 https://nppackages.github.io/lpdensity
 
+## Queries and Requests
+
+Please email: [lpdensity@googlegroups.com](mailto:lpdensity@googlegroups.com)
+
 ## Python Implementation
 
 To install/update in Python type:
