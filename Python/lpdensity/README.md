@@ -18,8 +18,8 @@ Rajita Chandak (maintainer) (<rchandak@princeton.edu>)
 
 https://nppackages.github.io/lpdensity/
 
-## ReadTheDocs Manual
-https://lpdensity.readthedocs.io/en/latest/
+## Manual
+https://github.com/nppackages/lpdensity/tree/master/Python/lpdensity/docs/build/latex/lpdensity.pdf
 
 ## Installation
 To install/update use pip
@@ -36,6 +36,7 @@ from lpdensity import lpdensity, lpbwdensity
 - pandas
 - math
 - scipy
+- sympy
 - plotnine
 
 ## References

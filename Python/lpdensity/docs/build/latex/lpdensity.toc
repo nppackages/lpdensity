@@ -1,0 +1,17 @@
+\babel@toc {english}{}
+\contentsline {chapter}{\numberline {1}References}{3}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Authors}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}lpdensity}{5}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}lpdensity}{5}{subsection.2.1.1}%
+\contentsline {subsubsection}{Description}{5}{subsubsection*.3}%
+\contentsline {subsubsection}{Details}{5}{subsubsection*.4}%
+\contentsline {subsubsection}{References}{6}{subsubsection*.5}%
+\contentsline {subsubsection}{Authors}{6}{subsubsection*.6}%
+\contentsline {subsubsection}{Example}{8}{subsubsection*.14}%
+\contentsline {subsection}{\numberline {2.1.2}lpbwdensity}{8}{subsection.2.1.2}%
+\contentsline {subsubsection}{Description}{8}{subsubsection*.15}%
+\contentsline {subsubsection}{References}{8}{subsubsection*.16}%
+\contentsline {subsubsection}{Authors}{9}{subsubsection*.17}%
+\contentsline {subsubsection}{Example}{10}{subsubsection*.22}%
+\contentsline {chapter}{Python Module Index}{11}{section*.23}%
+\contentsline {chapter}{Index}{13}{section*.24}%

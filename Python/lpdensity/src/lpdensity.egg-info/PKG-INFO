@@ -1,13 +1,11 @@
 Metadata-Version: 2.1
 Name: lpdensity
-Version: 1.0.3
+Version: 2.3.1
 Summary: Implements local polynomial point estimation with robust bias-corrected uniform confidence intervals.
 Home-page: https://github.com/nppackages/lpdensity
 Author: Rajita Chandak
 Author-email: rchandak@princeton.edu
-License: UNKNOWN
 Project-URL: Bug Tracker, https://github.com/nppackages/lpdensity/issues
-Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
@@ -74,5 +72,3 @@ Journal of Econometrics, forthcoming.<br>
 [Supplemental Appendix](https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2021_JoE--Supplement.pdf).
 
 <br><br> 
-
-

@@ -1,0 +1,40 @@
+\begin{sphinxtheindex}
+\let\bigletter\sphinxstyleindexlettergroup
+\let\spxpagem \sphinxstyleindexpagemain
+\let\spxentry \sphinxstyleindexentry
+\let\spxextra \sphinxstyleindexextra
+
+  \bigletter B
+  \item \spxentry{bw\_output}\spxextra{class in lpdensity.lpbwdensity}, \hyperpage{9}
+
+  \indexspace
+  \bigletter C
+  \item \spxentry{coef()}\spxextra{lpdensity.lpbwdensity.bw\_output method}, \hyperpage{9}
+  \item \spxentry{coef()}\spxextra{lpdensity.lpdensity.lpdensity\_output method}, \hyperpage{7}
+  \item \spxentry{confint()}\spxextra{lpdensity.lpdensity.lpdensity\_output method}, \hyperpage{7}
+
+  \indexspace
+  \bigletter L
+  \item \spxentry{lpbwdensity()}\spxextra{in module lpdensity.lpbwdensity}, \hyperpage{9}
+  \item \spxentry{lpdensity()}\spxextra{in module lpdensity.lpdensity}, \hyperpage{6}
+  \item \spxentry{lpdensity.lpbwdensity}
+    \subitem \spxentry{module}, \hyperpage{9}
+  \item \spxentry{lpdensity.lpdensity}
+    \subitem \spxentry{module}, \hyperpage{6}
+  \item \spxentry{lpdensity\_output}\spxextra{class in lpdensity.lpdensity}, \hyperpage{7}
+
+  \indexspace
+  \bigletter M
+  \item \spxentry{module}
+    \subitem \spxentry{lpdensity.lpbwdensity}, \hyperpage{9}
+    \subitem \spxentry{lpdensity.lpdensity}, \hyperpage{6}
+
+  \indexspace
+  \bigletter P
+  \item \spxentry{plot()}\spxextra{lpdensity.lpdensity.lpdensity\_output method}, \hyperpage{8}
+
+  \indexspace
+  \bigletter V
+  \item \spxentry{vcov()}\spxextra{lpdensity.lpdensity.lpdensity\_output method}, \hyperpage{8}
+
+\end{sphinxtheindex}

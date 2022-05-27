@@ -1,0 +1,13 @@
+\indexentry{module@\spxentry{module}!lpdensity.lpdensity@\spxentry{lpdensity.lpdensity}|hyperpage}{6}
+\indexentry{lpdensity.lpdensity@\spxentry{lpdensity.lpdensity}!module@\spxentry{module}|hyperpage}{6}
+\indexentry{lpdensity() (in module lpdensity.lpdensity)@\spxentry{lpdensity()}\spxextra{in module lpdensity.lpdensity}|hyperpage}{6}
+\indexentry{lpdensity\_output (class in lpdensity.lpdensity)@\spxentry{lpdensity\_output}\spxextra{class in lpdensity.lpdensity}|hyperpage}{7}
+\indexentry{coef() (lpdensity.lpdensity.lpdensity\_output method)@\spxentry{coef()}\spxextra{lpdensity.lpdensity.lpdensity\_output method}|hyperpage}{7}
+\indexentry{confint() (lpdensity.lpdensity.lpdensity\_output method)@\spxentry{confint()}\spxextra{lpdensity.lpdensity.lpdensity\_output method}|hyperpage}{7}
+\indexentry{plot() (lpdensity.lpdensity.lpdensity\_output method)@\spxentry{plot()}\spxextra{lpdensity.lpdensity.lpdensity\_output method}|hyperpage}{8}
+\indexentry{vcov() (lpdensity.lpdensity.lpdensity\_output method)@\spxentry{vcov()}\spxextra{lpdensity.lpdensity.lpdensity\_output method}|hyperpage}{8}
+\indexentry{module@\spxentry{module}!lpdensity.lpbwdensity@\spxentry{lpdensity.lpbwdensity}|hyperpage}{9}
+\indexentry{lpdensity.lpbwdensity@\spxentry{lpdensity.lpbwdensity}!module@\spxentry{module}|hyperpage}{9}
+\indexentry{bw\_output (class in lpdensity.lpbwdensity)@\spxentry{bw\_output}\spxextra{class in lpdensity.lpbwdensity}|hyperpage}{9}
+\indexentry{coef() (lpdensity.lpbwdensity.bw\_output method)@\spxentry{coef()}\spxextra{lpdensity.lpbwdensity.bw\_output method}|hyperpage}{9}
+\indexentry{lpbwdensity() (in module lpdensity.lpbwdensity)@\spxentry{lpbwdensity()}\spxextra{in module lpdensity.lpbwdensity}|hyperpage}{9}
