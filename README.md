@@ -18,7 +18,7 @@ To install/update in Python type:
 ```
 pip install lpdensity
 ```
-- Help: [Python Manual](https://github.com/nppackages/lpdensity/tree/master/Python/lpdensity/docs/build/latex/lpdensity.pdf), [PyPi repository](https://pypi.org/project/lpdensity/).
+- Help: [Python Manual](Python/lpdensity/docs/build/latex/lpdensity.pdf), [PyPi repository](https://pypi.org/project/lpdensity/).
 
 - Replication: [py-script](Python/lpdensity_illustration.py).
 
