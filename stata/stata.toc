@@ -3,5 +3,5 @@ d LPDENSITY: Estimation and inference using local polynomial distribution/densit
 d            https://nppackages.github.io/lpdensity
 d 
  
-p lpdensity
+p lpdensity 
 

@@ -75,8 +75,8 @@ This option will be ignored if \code{bwselect} is \code{"mse-rot"} or \code{"ims
 \description{
 \code{\link{lpbwdensity}} implements the bandwidth selection methods for local
   polynomial based density (and derivatives) estimation proposed and studied
-  in Cattaneo, Jansson and Ma (2020, 2022a).
-  See Cattaneo, Jansson and Ma (2022b) for more implementation details and illustrations.
+  in Cattaneo, Jansson and Ma (2020, 2023).
+  See Cattaneo, Jansson and Ma (2022) for more implementation details and illustrations.
 
   Companion command: \code{\link{lpdensity}} for estimation and robust bias-corrected inference.
 
@@ -99,9 +99,9 @@ summary(bw1, gridIndex=4:10)
 \references{
 Cattaneo, M. D., M. Jansson, and X. Ma. 2020. \href{https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf}{Simple Local Polynomial Density Estimators}. \emph{Journal of the American Statistical Association}, 115(531): 1449-1455. \doi{10.1080/01621459.2019.1635480}
 
-  Cattaneo, M. D., M. Jansson, and X. Ma. 2022a. \href{https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2022_JoE.pdf}{Local Regression Distribution Estimators}. \emph{Journal of Econometrics}, forthcoming. \doi{10.1016/j.jeconom.2021.01.006}
+  Cattaneo, M. D., M. Jansson, and X. Ma. 2022. \href{https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2022_JSS.pdf}{lpdensity: Local Polynomial Density Estimation and Inference}. \emph{Journal of Statistical Software}, 101(2), 1–25. \doi{10.18637/jss.v101.i02}
 
-  Cattaneo, M. D., M. Jansson, and X. Ma. 2022b. \href{https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2022_JSS.pdf}{lpdensity: Local Polynomial Density Estimation and Inference}. \emph{Journal of Statistical Software}, 101(2), 1–25. \doi{10.18637/jss.v101.i02}
+  Cattaneo, M. D., M. Jansson, and X. Ma. 2023. \href{https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2023_JoE.pdf}{Local Regression Distribution Estimators}. \emph{Journal of Econometrics}, forthcoming. \doi{10.1016/j.jeconom.2021.01.006}
 }
 \seealso{
 Supported methods: \code{\link{coef.lpbwdensity}}, \code{\link{print.lpbwdensity}}, \code{\link{summary.lpbwdensity}}.

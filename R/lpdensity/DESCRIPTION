@@ -1,6 +1,6 @@
 Package: lpdensity
 Title: Local Polynomial Density Estimation and Inference
-Version: 2.3.1
+Version: 2.4
 Author: Matias D. Cattaneo, Michael Jansson, Xinwei Ma
 Maintainer: Xinwei Ma <x1ma@ucsd.edu>
 Description: Without imposing stringent distributional assumptions or shape restrictions, nonparametric estimation has been popular in economics and other social sciences for counterfactual analysis, program evaluation, and policy recommendations. This package implements a novel density (and derivatives) estimator based on local polynomial regressions, documented in Cattaneo, Jansson and Ma (2022) <doi:10.18637/jss.v101.i02>: lpdensity() to construct local polynomial based density (and derivatives) estimator, and lpbwdensity() to perform data-driven bandwidth selection. 
@@ -8,4 +8,4 @@ Imports: ggplot2, MASS
 Depends: R (>= 3.1)
 License: GPL-2
 Encoding: UTF-8
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.2

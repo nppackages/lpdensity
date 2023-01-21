@@ -1,5 +1,5 @@
 {smcl}
-{* *!version 2.3.1 2022-05-03}{...}
+{* *!version 2.4 2023-01-21}{...}
 
 {title:Title}
 
@@ -58,8 +58,8 @@
 Robust bias-corrected inference, both pointwise (confidence intervals) and uniform (confidence bands) are also implemented following the results in
 {browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":Cattaneo, Jansson and Ma (2020)}
 and
-{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2022_JoE.pdf":Cattaneo, Jansson and Ma (2022a)}. 
-See {browse "https://doi.org/10.18637/jss.v101.i02":Cattaneo, Jansson and Ma (2022b)} for more 
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2023_JoE.pdf":Cattaneo, Jansson and Ma (2023)}. 
+See {browse "https://doi.org/10.18637/jss.v101.i02":Cattaneo, Jansson and Ma (2022)} for more 
 implementation details and illustrations.{p_end}
 
 {p 8 8} Companion command: {help lpbwdensity:lpbwdensity} for bandwidth selection.{p_end}
@@ -204,10 +204,10 @@ to be equal results on centered at the point estimate confidence intervals/bands
 {cmd:q(}{it:#}{cmd:)} = {cmd:p(}{it:#}{cmd:)},
 and the point estimates will not be (I)MSE optimal. See Cattaneo, Jansson and Ma
 ({browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":2020},
-{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2022_JoE.pdf":2022a})
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2023_JoE.pdf":2023})
 for details, and also Calonico, Cattaneo, and Farrell
 ({browse "https://nppackages.github.io/references/Calonico-Cattaneo-Farrell_2018_JASA.pdf":2018},
-{browse "https://cattaneo.princeton.edu/papers/Calonico-Cattaneo-Farrell_2021_Bernoulli.pdf":2022}) 
+{browse "https://cattaneo.princeton.edu/papers/Calonico-Cattaneo-Farrell_2022_Bernoulli.pdf":2022}) 
 for robust bias correction methods. {p_end}
 
 {p 4 8}
@@ -271,20 +271,20 @@ Sometimes the density point estimates may lie outside of the confidence interval
 {p 8 8}{it:Journal of the American Statistical Association} 113(522): 767-779.{p_end}
 
 {p 4 8}Calonico, S., M. D. Cattaneo, and M. H. Farrell. 2022.
-{browse "https://cattaneo.princeton.edu/papers/Calonico-Cattaneo-Farrell_2021_Bernoulli.pdf":Coverage Error Optimal Confidence Intervals for Local Polynomial Regression}.{p_end}
-{p 8 8}{it:Bernoulli}, forthcoming.{p_end}
+{browse "https://cattaneo.princeton.edu/papers/Calonico-Cattaneo-Farrell_2022_Bernoulli.pdf":Coverage Error Optimal Confidence Intervals for Local Polynomial Regression}.{p_end}
+{p 8 8}{it:Bernoulli} 28(4): 2998-3022.{p_end}
 
 {p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2020.
 {browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":Simple Local Polynomial Density Estimators}.{p_end}
 {p 8 8}{it:Journal of the American Statistical Association} 115(531): 1449-1455.{p_end}
 
-{p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2022a.
-{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2022_JoE.pdf":Local Regression Distribution Estimators}.{p_end}
-{p 8 8}{it:Journal of Econometrics}, forthcoming.{p_end}
-
-{p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2022b.
+{p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2022.
 {browse "https://doi.org/10.18637/jss.v101.i02":lpdensity: Local Polynomial Density Estimation and Inference}.{p_end}
 {p 8 8}{it:Journal of Statistical Software} 101(2): 1-25.{p_end}
+
+{p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2023.
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2023_JoE.pdf":Local Regression Distribution Estimators}.{p_end}
+{p 8 8}{it:Journal of Econometrics}, forthcoming.{p_end}
 
 {title:Authors}
 

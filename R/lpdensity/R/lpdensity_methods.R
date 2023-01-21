@@ -544,14 +544,15 @@ plot.lpdensity <- function(..., alpha=NULL,
     if(is.null(histBreaks)) { histBreaks <- seq(from=min(histData[, 1]), to=max(histData[, 1]), length.out=21) }
     histScale <- mean(histData[, 1] >= min(histBreaks) & histData[, 1] <= max(histBreaks))
     temp_plot <- ggplot() +
-      geom_histogram(data=histData, aes(x=v1, y=..density..*histScale), breaks=histBreaks, fill=histFillCol, col=histLineCol, alpha=histFillShade) +
+      geom_histogram(data=histData, aes(x=v1, y=after_stat(density)*histScale), breaks=histBreaks, fill=histFillCol, col=histLineCol, alpha=histFillShade) +
       theme_bw() #+ theme(legend.position="none")
   } else {
     temp_plot <- ggplot() + theme_bw() #+ theme(legend.position="none")
   }
 
 
-  CI_l <- CI_r <- f_p <- Sname <- v1 <- ..density.. <- NULL
+  #CI_l <- CI_r <- f_p <- Sname <- v1 <- ..density.. <- NULL
+  CI_l <- CI_r <- f_p <- Sname <- v1 <- NULL
 
   ########################################
   # looping over input models

@@ -2,7 +2,7 @@
 * LPDENSITY STATA PACKAGE -- lpdensity
 * Authors: Matias D. Cattaneo, Michael Jansson, Xinwei Ma
 ********************************************************************************
-*!version 2.3.1 2022-05-03
+*!version 2.4 2023-01-21
 
 capture program drop lpdensity
 
