@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: lpdensity
-Version: 2.4
+Version: 2.4.1
 Summary: Implements local polynomial point estimation with robust bias-corrected uniform confidence intervals.
 Home-page: https://github.com/nppackages/lpdensity
 Author: Rajita Chandak
@@ -64,11 +64,11 @@ _Journal of Statistical Software_ 101(2): 1-25.
 
 ### Technical and Methodological
 
-- Cattaneo, Jansson and Ma (2020): [Simple Local Polynomial Density Estimators](https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf).<br>
-_Journal of the American Statistical Association_ 115(531): 1449-1455.<br>
+- Cattaneo, M. D., M. Jansson, and X. Ma (2020). [Simple Local Polynomial Density Estimators](https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf).<br>
+_Journal of the American Statistical Association_, 115(531): 1449-1455.<br>
 [Supplemental appendix](https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA--Supplement.pdf).
 
-- Cattaneo, Jansson and Ma (2022): [Local Regression Distribution Estimators](https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2022_JoE.pdf).<br>
+- Cattaneo, M. D., M. Jansson, and X. Ma (2023). [Local Regression Distribution Estimators](https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2023_JoE.pdf). <br>
 _Journal of Econometrics_, forthcoming.<br>
 [Supplemental Appendix](https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2022_JoE--Supplement.pdf).
 
@@ -78,13 +78,9 @@ _Journal of the American Statistical Association_ 113(522): 767-779.
 - Calonico, S., M. D. Cattaneo, and M. H. Farrell (2022): [Coverage Error Optimal Confidence Intervals for Local Polynomial Regression](https://cattaneo.princeton.edu/papers/Calonico-Cattaneo-Farrell_2022_Bernoulli.pdf).<br>
 _Bernoulli_ 28(4): 2998-3022.
 
-- Cattaneo, M. D., M. Jansson, and X. Ma (2020). [Simple Local Polynomial Density Estimators](https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf).<br>
-_Journal of the American Statistical Association_, 115(531): 1449-1455.
 
 - Cattaneo, M. D., M. Jansson, and X. Ma (2022). [lpdensity: Local Polynomial Density Estimation and Inference](https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2022_JSS.pdf). <br>
 _Journal of Statistical Software_, 101(2), 1–25.
 
-- Cattaneo, M. D., M. Jansson, and X. Ma (2023). [Local Regression Distribution Estimators](https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2023_JoE.pdf). <br>
-_Journal of Econometrics_, forthcoming.
 
 <br><br>
