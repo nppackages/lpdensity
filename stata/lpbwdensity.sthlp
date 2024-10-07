@@ -1,5 +1,5 @@
 {smcl}
-{* *!version 2.4 2023-01-21}{...}
+{* *!version 2.5 2024-10-06}{...}
 
 {title:Title}
 
@@ -39,7 +39,7 @@
 {p 4 8} {cmd:lpbwdensity} implements the bandwidth selection methods for local polynomial based density (and derivatives) estimation proposed and studied in 
 {browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":Cattaneo, Jansson and Ma (2020)}
 and
-{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2023_JoE.pdf":Cattaneo, Jansson and Ma (2023)}. 
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2024_JoE.pdf":Cattaneo, Jansson and Ma (2024)}. 
 See {browse "https://doi.org/10.18637/jss.v101.i02":Cattaneo, Jansson and Ma (2022)} for more 
 implementation details and illustrations.{p_end}
 
@@ -154,9 +154,9 @@ generated: {p_end}
 {browse "https://doi.org/10.18637/jss.v101.i02":lpdensity: Local Polynomial Density Estimation and Inference}.{p_end}
 {p 8 8}{it:Journal of Statistical Software} 101(2): 1-25.{p_end}
 
-{p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2023.
-{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2023_JoE.pdf":Local Regression Distribution Estimators}.{p_end}
-{p 8 8}{it:Journal of Econometrics}, forthcoming.{p_end}
+{p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2024.
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2024_JoE.pdf":Local Regression Distribution Estimators}.{p_end}
+{p 8 8}{it:Journal of Econometrics} 240(2): 105074.{p_end}
 
 
 

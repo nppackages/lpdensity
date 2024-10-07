@@ -58,7 +58,7 @@
 Robust bias-corrected inference, both pointwise (confidence intervals) and uniform (confidence bands) are also implemented following the results in
 {browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":Cattaneo, Jansson and Ma (2020)}
 and
-{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2023_JoE.pdf":Cattaneo, Jansson and Ma (2023)}. 
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2024_JoE.pdf":Cattaneo, Jansson and Ma (2024)}. 
 See {browse "https://doi.org/10.18637/jss.v101.i02":Cattaneo, Jansson and Ma (2022)} for more 
 implementation details and illustrations.{p_end}
 
@@ -204,7 +204,7 @@ to be equal results on centered at the point estimate confidence intervals/bands
 {cmd:q(}{it:#}{cmd:)} = {cmd:p(}{it:#}{cmd:)},
 and the point estimates will not be (I)MSE optimal. See Cattaneo, Jansson and Ma
 ({browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf":2020},
-{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2023_JoE.pdf":2023})
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2024_JoE.pdf":2024})
 for details, and also Calonico, Cattaneo, and Farrell
 ({browse "https://nppackages.github.io/references/Calonico-Cattaneo-Farrell_2018_JASA.pdf":2018},
 {browse "https://cattaneo.princeton.edu/papers/Calonico-Cattaneo-Farrell_2022_Bernoulli.pdf":2022}) 
@@ -282,9 +282,9 @@ Sometimes the density point estimates may lie outside of the confidence interval
 {browse "https://doi.org/10.18637/jss.v101.i02":lpdensity: Local Polynomial Density Estimation and Inference}.{p_end}
 {p 8 8}{it:Journal of Statistical Software} 101(2): 1-25.{p_end}
 
-{p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2023.
-{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2023_JoE.pdf":Local Regression Distribution Estimators}.{p_end}
-{p 8 8}{it:Journal of Econometrics}, forthcoming.{p_end}
+{p 4 8}Cattaneo, M. D., Michael Jansson, and Xinwei Ma. 2024.
+{browse "https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2024_JoE.pdf":Local Regression Distribution Estimators}.{p_end}
+{p 8 8}{it:Journal of Econometrics} 240(2): 105074.{p_end}
 
 {title:Authors}
 

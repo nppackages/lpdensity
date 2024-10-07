@@ -1,5 +1,5 @@
 *-------------------------------------------------------------------------------
-* lpdensity: Local Polynomial Density Estimation and Inference 
+* lpdensity: Local Polynomial Density Estimation and Inference  
 * Matias D. Cattaneo, Michael Jansson, and Xinwei Ma
 * Replication Code
 *-------------------------------------------------------------------------------
