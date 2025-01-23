@@ -677,7 +677,7 @@ def __bw_MSE(
         # G matrix
         if v == 0:
             G_hat = np.matmul(
-                Xh_p_temp,
+                Xh_p_temp.transpose(),
                 Xh_p_temp.mul(Kh_temp.mul(Pweights[index_temp], axis=0) ** 2) / n,
             )
         else:
