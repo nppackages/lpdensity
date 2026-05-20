@@ -18,6 +18,10 @@ import statistics as stat
 import pandas as pd
 
 
+def _as_scalar_bandwidth(value):
+    return float(np.asarray(value, dtype=float).reshape(-1)[0])
+
+
 def __kernel_fn(a, h, kernel):
     if kernel == "triangular":
         kh = (1 - abs(a)) / h
@@ -29,36 +33,24 @@ def __kernel_fn(a, h, kernel):
 
 
 def __lpdensityUnique(x):
-    n = len(x)
-    x = pd.DataFrame(x)
-    # if x has less than 2 elements
+    values = np.asarray(x, dtype=float).reshape(-1)
+    n = len(values)
+
     if n == 0:
-        return {"unique": None, "freq": [None], "index": [None]}
+        return {
+            "unique": np.array([], dtype=float),
+            "freq": np.array([], dtype=int),
+            "index": np.array([], dtype=int),
+        }
     if n == 1:
-        return {"unique": x, "freq": [1], "index": [0]}
+        return {"unique": values.copy(), "freq": np.array([1]), "index": np.array([0])}
 
-    # if x has more than 1 element
-    unique, uniqueIndex, nUniquelist = np.unique(
-        x, return_index=True, return_counts=True, axis=0
-    )
-    nUnique = sum(unique)
-    # uniqueIndex = x != x.shift()
-    # unique = np.array(x)[uniqueIndex]
-    # nUnique = len(unique)
+    unique_mask = np.r_[values[1:] != values[:-1], True]
+    unique = values[unique_mask]
+    index = np.flatnonzero(unique_mask)
+    freq = np.diff(np.r_[-1, index])
 
-    # if all are distinct
-    if nUnique == n:
-        return {"unique": unique, "freq": np.repeat(1, len(x)), "index": list(range(n))}
-
-    # if all are the same
-    if nUnique == 1:
-        return {"unique": unique, "freq": [n], "index": [n - 1]}
-
-    # freq = np.cumsum(uniqueIndex==False)[uniqueIndex].iloc[:,0]
-    # freq = freq - pd.concat([pd.Series([0]), freq[:-1]]) + 1
-    # freq = pd.DataFrame(freq).reset_index(drop=True).dropna()[0]
-
-    return {"unique": unique, "freq": nUniquelist, "index": uniqueIndex}
+    return {"unique": unique, "freq": freq, "index": index}
 
 
 # Internal function
@@ -459,7 +451,7 @@ def __bw_MSE(
     dataUnique = __lpdensityUnique(data)
     freqUnique = dataUnique["freq"]
     indexUnique = dataUnique["index"]
-    dataUnique = dataUnique["unique"]
+    dataUnique = np.asarray(dataUnique["unique"], dtype=float).reshape(-1)
     nUnique = len(dataUnique)
 
     if stdVar == True:
@@ -516,6 +508,7 @@ def __bw_MSE(
         nLocalMin=20 + 2 + 1,
         nUniqueMin=20 + 2 + 1,
     )
+    h1 = _as_scalar_bandwidth(h1)
     # bandwidth for F_p+1
     hp1 = __bw_IROT(
         data=data,
@@ -531,6 +524,7 @@ def __bw_MSE(
         nLocalMin=20 + p + 2 + 1,
         nUniqueMin=20 + p + 2 + 1,
     )
+    hp1 = _as_scalar_bandwidth(hp1)
 
     # bandwidth fro F_p+2
     hp2 = __bw_IROT(
@@ -547,6 +541,7 @@ def __bw_MSE(
         nLocalMin=20 + p + 3 + 1,
         nUniqueMin=20 + p + 3 + 1,
     )
+    hp2 = _as_scalar_bandwidth(hp2)
 
     # density estimates with normalization constants
     dgp_hat = np.zeros((ng, 2))
@@ -833,7 +828,7 @@ def __bw_IMSE(
     dataUnique = __lpdensityUnique(data)
     freqUnique = dataUnique["freq"]
     indexUnique = dataUnique["index"]
-    dataUnique = dataUnique["unique"]
+    dataUnique = np.asarray(dataUnique["unique"], dtype=float).reshape(-1)
     nUnique = len(dataUnique)
 
     if stdVar == True:
@@ -886,6 +881,7 @@ def __bw_IMSE(
         nLocalMin=20 + 2 + 1,
         nUniqueMin=20 + 2 + 1,
     )
+    h1 = _as_scalar_bandwidth(h1)
 
     # bandwidth for F_p+1
     hp1 = __bw_IROT(
@@ -902,6 +898,7 @@ def __bw_IMSE(
         nLocalMin=20 + p + 2 + 1,
         nUniqueMin=20 + p + 2 + 1,
     )
+    hp1 = _as_scalar_bandwidth(hp1)
 
     # bandwidth fro F_p+2
     hp2 = __bw_IROT(
@@ -918,6 +915,7 @@ def __bw_IMSE(
         nLocalMin=20 + p + 3 + 1,
         nUniqueMin=20 + p + 3 + 1,
     )
+    hp2 = _as_scalar_bandwidth(hp2)
 
     # density estimates with normalization constants
     dgp_hat = np.zeros((ng, 2))

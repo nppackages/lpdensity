@@ -1,6 +1,5 @@
 #--------------------------------------------------------------------------------
-# lpdensity: Local Polynomial Density Estimation and Inference
-# Matias D. Cattaneo, Rajita Chandak, Michael Jansson, and Xinwei Ma
+# LPDENSITY Package
 # Replication Code
 #--------------------------------------------------------------------------------
 

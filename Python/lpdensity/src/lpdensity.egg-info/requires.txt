@@ -1,5 +1,12 @@
-numpy
-pandas
-scipy
-sympy
-plotnine
+numpy>=1.23
+pandas>=2.0.0
+scipy>=1.10
+sympy>=1.12
+plotnine>=0.13.0
+
+[dev]
+pytest
+build
+setuptools
+twine
+wheel

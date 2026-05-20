@@ -28,13 +28,13 @@ Cattaneo, M. D., M. Jansson, and X. Ma. 2021b.
 
 Authors
 -------
-Matias D. Cattaneo, Princeton University. (cattaneo@princeton.edu).
+Matias D. Cattaneo (maintainer), Princeton University. (matias.d.cattaneo@gmail.com).
 
-Rajita Chandak (maintainer), Princeton University. (rchandak@princeton.edu). 
+Rajita Chandak. (rajita.chandak@gmail.com).
 
-Michael Jansson, University of California Berkeley. (mjansson@econ.berkeley.edu).
+Michael Jansson, University of California Berkeley. (michael.jansson.berkeley@gmail.com).
 
-Xinwei Ma (maintainer), University of California San Diego. (x1ma@ucsd.edu).
+Xinwei Ma, University of California San Diego. (xinweima.pku@gmail.com).
 
 
 .. automodule:: lpdensity.lpbwdensity

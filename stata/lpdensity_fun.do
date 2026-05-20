@@ -2,7 +2,7 @@
 * LPDENSITY STATA PACKAGE -- lpdensity mata functions
 * Authors: Matias D. Cattaneo, Michael Jansson, Xinwei Ma
 ********************************************************************************
-*!version 2.5 2024-10-06
+*!version 3.0 2026-05-20
 
 ** do lpdensity_fn.ado
 

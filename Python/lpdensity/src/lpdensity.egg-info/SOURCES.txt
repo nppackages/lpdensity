@@ -2,6 +2,7 @@ README.md
 pyproject.toml
 setup.cfg
 src/lpdensity/__init__.py
+src/lpdensity/_validation.py
 src/lpdensity/lpbwdensity.py
 src/lpdensity/lpbwdensity_fn.py
 src/lpdensity/lpdensity.py
@@ -11,3 +12,4 @@ src/lpdensity.egg-info/SOURCES.txt
 src/lpdensity.egg-info/dependency_links.txt
 src/lpdensity.egg-info/requires.txt
 src/lpdensity.egg-info/top_level.txt
+tests/test_numerical_baseline.py

@@ -1,9 +1,8 @@
 *-------------------------------------------------------------------------------
-* lpdensity: Local Polynomial Density Estimation and Inference  
-* Matias D. Cattaneo, Michael Jansson, and Xinwei Ma
+* LPDENSITY Package
 * Replication Code
 *-------------------------------------------------------------------------------
-* net install lpdensity, from(https://raw.githubusercontent.com/nppackages/lpdensity/master/stata) replace
+* net install lpdensity, from(https://raw.githubusercontent.com/nppackages/lpdensity/main/stata) replace
 *-------------------------------------------------------------------------------
 clear all  
 set more off

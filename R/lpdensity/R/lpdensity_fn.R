@@ -1,4 +1,10 @@
 ################################################################################
+# Internal polynomial design matrix helper.
+lpdensityPolyMatrix <- function(x, degree) {
+  outer(as.numeric(x), 0:degree, `^`)
+}
+
+################################################################################
 #' Supporting Function for \code{\link{lpdensity}}
 #'
 #' \code{lpdensity_fn} implements the local polynomial density estimator. This
@@ -92,7 +98,7 @@ lpdensity_fn <- function(data, grid, bw, p, q, v, kernel, Cweights, Pweights, ma
     if (massPoints) {
       Y_temp    <- matrix(Fn[indexUnique], ncol=1)
       Xh_temp   <- matrix((data[indexUnique] - grid[j]), ncol=1) / bw[j]
-      Xh_p_temp <- t(apply(Xh_temp, MARGIN=1, FUN=function(x) x^(0:p)))
+      Xh_p_temp <- lpdensityPolyMatrix(Xh_temp, p)
       if (p == 0) {
         Xh_p_temp <- matrix(Xh_p_temp, ncol=1)
       }
@@ -119,7 +125,7 @@ lpdensity_fn <- function(data, grid, bw, p, q, v, kernel, Cweights, Pweights, ma
     } else {
       Y_temp    <- matrix(Fn, ncol=1)
       Xh_temp   <- matrix((data - grid[j]), ncol=1) / bw[j]
-      Xh_p_temp <- t(apply(Xh_temp, MARGIN=1, FUN=function(x) x^(0:p)))
+      Xh_p_temp <- lpdensityPolyMatrix(Xh_temp, p)
       if (p == 0) {
         Xh_p_temp <- matrix(Xh_p_temp, ncol=1)
       }
@@ -170,7 +176,7 @@ lpdensity_fn <- function(data, grid, bw, p, q, v, kernel, Cweights, Pweights, ma
 
     if (q > p) {
       if (massPoints) {
-        Xh_q_temp <- t(apply(Xh_temp, MARGIN=1, FUN=function(x) x^(0:q)))
+        Xh_q_temp <- lpdensityPolyMatrix(Xh_temp, q)
         Xh_q_Kh_temp <- sweep(Xh_q_temp, MARGIN=1, FUN="*", STATS=Kh_temp)
         Xh_q_Kh_Pweights_temp <- sweep(Xh_q_Kh_temp, MARGIN=1, FUN="*", STATS=PweightsUnique)
 
@@ -182,7 +188,7 @@ lpdensity_fn <- function(data, grid, bw, p, q, v, kernel, Cweights, Pweights, ma
         # point estimate
         hat_q[j] <- factorial(v) * (XhKhXh_inv %*% t(Xh_q_Kh_Pweights_temp[index_temp[indexUnique], , drop=FALSE]) %*% Y_temp[index_temp[indexUnique], , drop=FALSE])[v+1] / bw[j]^v / n
       } else {
-        Xh_q_temp <- t(apply(Xh_temp, MARGIN=1, FUN=function(x) x^(0:q)))
+        Xh_q_temp <- lpdensityPolyMatrix(Xh_temp, q)
         Xh_q_Kh_temp <- sweep(Xh_q_temp, MARGIN=1, FUN="*", STATS=Kh_temp)
         Xh_q_Kh_Pweights_temp <- sweep(Xh_q_Kh_temp, MARGIN=1, FUN="*", STATS=Pweights)
 
@@ -231,5 +237,3 @@ lpdensity_fn <- function(data, grid, bw, p, q, v, kernel, Cweights, Pweights, ma
 
   return(list(Estimate=Estimate, CovMat_p=CovMat_p, CovMat_q=CovMat_q))
 }
-
-

@@ -1,5 +1,5 @@
 {smcl}
-{* *!version 2.4 2023-01-21}{...}
+{* *!version 3.0 2026-05-20}{...}
 
 {title:Title}
 
@@ -33,7 +33,8 @@
 {cmd:level(}{it:#}{cmd:)}
 {cmd:ciuniform}
 {cmd:cisimul(}{it:#}{cmd:)}
-{cmd:separator(}{it:#}{cmd:)}{p_end}
+{cmd:separator(}{it:#}{cmd:)}
+{cmd:precision(}{it:Precision}{cmd:)}{p_end}
 {p 14 18}{cmd:plot}{p_end}
 {p 14 18}{cmd:estype(}{it:ESOpts}{cmd:)}
 {cmd:esline_options(}{it:ESLineOpts}{cmd:)}
@@ -152,6 +153,8 @@ point estimates with polynomial order {cmd:q(}{it:#}{cmd:)} and the correspondin
 
 {p 4 8}{opt sep:arator}({it:#}) draw a seperation line after every {it:#} variables; default is {cmd:separator(5)}.{p_end}
 
+{p 4 8}{opt prec:ision}({it:Precision}) controls the storage type for command-generated temporary and {cmd:genvars()} variables. Options are {cmd:double} (default) and {cmd:single}. Mata calculations and returned matrices are double precision; for full double precision, user-supplied data, grid, bandwidth, and weight variables should also be stored as {cmd:double}.{p_end}
+
 {dlgtab:Plotting}
 
 {p 4 8}{opt pl:ot} if specified, point estimates and confidence intervals will be plotted.{p_end}
@@ -260,6 +263,7 @@ Sometimes the density point estimates may lie outside of the confidence interval
 {p2col 5 20 24 2: Macros}{p_end}
 {synopt:{cmd:e(bwselect)}}option {cmd:bwselect(}{it:BwMethod}{cmd:)}{p_end}
 {synopt:{cmd:e(kernel)}}option {cmd:kernel(}{it:KernelFn}{cmd:)}{p_end}
+{synopt:{cmd:e(precision)}}option {cmd:precision(}{it:Precision}{cmd:)}{p_end}
 {p2col 5 20 24 2: Matrices}{p_end}
 {synopt:{cmd:e(result)}}estimation result{p_end}
 
@@ -289,12 +293,10 @@ Sometimes the density point estimates may lie outside of the confidence interval
 {title:Authors}
 
 {p 4 8}Matias D. Cattaneo, Princeton University, Princeton, NJ.
-{browse "mailto:cattaneo@princeton.edu":cattaneo@princeton.edu}.{p_end}
+{browse "mailto:matias.d.cattaneo@gmail.com":matias.d.cattaneo@gmail.com}.{p_end}
 
 {p 4 8}Michael Jansson, University of California Berkeley, Berkeley, CA.
-{browse "mailto:mjansson@econ.berkeley.edu":mjansson@econ.berkeley.edu}.{p_end}
+{browse "mailto:michael.jansson.berkeley@gmail.com":michael.jansson.berkeley@gmail.com}.{p_end}
 
 {p 4 8}Xinwei Ma, University of California San Diego, La Jolla, CA.
-{browse "mailto:x1ma@ucsd.edu":x1ma@ucsd.edu}.{p_end}
-
-
+{browse "mailto:xinweima.pku@gmail.com":xinweima.pku@gmail.com}.{p_end}

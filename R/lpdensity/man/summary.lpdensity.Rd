@@ -44,9 +44,9 @@ Supported methods: \code{\link{coef.lpdensity}}, \code{\link{confint.lpdensity}}
   \code{\link{vcov.lpdensity}}.
 }
 \author{
-Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
+Matias D. Cattaneo (maintainer), Princeton University. \email{matias.d.cattaneo@gmail.com}.
 
-Michael Jansson, University of California Berkeley. \email{mjansson@econ.berkeley.edu}.
+Michael Jansson, University of California Berkeley. \email{michael.jansson.berkeley@gmail.com}.
 
-Xinwei Ma (maintainer), University of California San Diego. \email{x1ma@ucsd.edu}.
+Xinwei Ma, University of California San Diego. \email{xinweima.pku@gmail.com}.
 }

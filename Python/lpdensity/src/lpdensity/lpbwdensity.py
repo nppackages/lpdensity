@@ -3,8 +3,8 @@
 
 import pandas as pd
 import numpy as np
-import math
 from . import lpbwdensity_fn
+from ._validation import as_nonnegative_integer, as_numeric_vector, normalize_bwselect
 
 pd.options.mode.chained_assignment = None
 
@@ -80,32 +80,21 @@ def lpbwdensity(
     """
 
     # data
-    data = pd.DataFrame(data)
-    if data.isnull().values.any():
-        raise Exception(data.isnull().sum() + "missing observation(s) are ignored.\n")
-        data = data.dropna(axis=0)
-
+    data = as_numeric_vector(data, "Data")
     n = len(data)
-    data = np.array(data).reshape(
-        n,
-    )
-    if n == 0 or not np.isscalar(n):
-        raise Exception("Data should be numeric, and cannot be empty.")
 
     # grid
     if grid is None:
         grid = np.quantile(data, np.arange(0.05, 0.95, 0.05))
         ng = len(grid)
     else:
+        grid = as_numeric_vector(grid, "Grid points")
         ng = len(grid)
-        if not np.isreal(grid).any():
-            raise Exception("Grid points should be numeric.")
 
     # bwselect
-    if len(bwselect) == 0:
-        bwselect = "mse-dpi"
-    else:
-        bwselect = bwselect.lower()
+    bwselect = normalize_bwselect(bwselect)
+    if bwselect not in ["mse-dpi", "imse-dpi", "mse-rot", "imse-rot"]:
+        raise Exception("bwselect incorrectly specified")
 
     # p
     if p is None:
@@ -131,26 +120,20 @@ def lpbwdensity(
     # Cweights
     if Cweights is None:
         Cweights = np.repeat(1, n)
-    elif not np.isreal(Cweights).any():
-        raise Exception("Counterfactual weights incorrectly specified.")
-    elif len(Cweights) != n:
-        raise Exception("Counterfactual weights should have the same length as sample.")
-
-    if isinstance(Cweights, pd.Series):
-        Cweights = Cweights.to_numpy()
+    else:
+        Cweights = as_numeric_vector(Cweights, "Counterfactual weights")
+        if len(Cweights) != n:
+            raise Exception("Counterfactual weights should have the same length as sample.")
 
     # Pweights
     if Pweights is None:
         Pweights = np.repeat(1, n)
-    elif not np.isreal(Pweights).any():
-        raise Exception("Probability weights incorrectly specified.")
-    elif len(Pweights) != n:
-        raise Exception("Probability weights should have the same length as sample.")
-    elif any(x < 0 for x in Pweights) == True:
-        raise Exception("Probability weights should be nonnegative.")
-
-    if isinstance(Pweights, pd.Series):
-        Pweights = Pweights.to_numpy()
+    else:
+        Pweights = as_numeric_vector(Pweights, "Probability weights")
+        if len(Pweights) != n:
+            raise Exception("Probability weights should have the same length as sample.")
+        if np.any(Pweights < 0):
+            raise Exception("Probability weights should be nonnegative.")
 
     # massPoints
     if massPoints is None:
@@ -173,22 +156,14 @@ def lpbwdensity(
     # nLocalMin
     if nLocalMin is None:
         nLocalMin = 20 + p + 1
-    if not np.isreal(nLocalMin) or np.isnan(nLocalMin):
-        raise Exception("Option nLocalMin incorrectly specified.")
-    elif math.ceil(nLocalMin) < 0:
-        raise Exception("Option nLocalMin incorrectly specified.")
     else:
-        nLocalMin = math.ceil(nLocalMin)
+        nLocalMin = as_nonnegative_integer(nLocalMin, "nLocalMin")
 
     # nUniqueMin
     if nUniqueMin is None:
         nUniqueMin = 20 + p + 1
-    if not np.isreal(nUniqueMin) or np.isnan(nUniqueMin):
-        raise Exception("Option nUniqueMin incorrectly specified.")
-    elif math.ceil(nUniqueMin) < 0:
-        raise Exception("Option nUniqueMin incorrectly specified.")
     else:
-        nUniqueMin = math.ceil(nUniqueMin)
+        nUniqueMin = as_nonnegative_integer(nUniqueMin, "nUniqueMin")
 
     #########################
     ##   Sample Trimming   ##
@@ -273,15 +248,20 @@ def lpbwdensity(
         )
         bw = np.repeat(bw, len(grid))
 
-    BW = pd.DataFrame(columns=["grid", "bw", "nh", "nhu"])
-    BW["grid"] = grid
-    BW["bw"] = bw
+    grid = np.asarray(grid, dtype=float).reshape(-1)
+    bw = np.asarray(bw, dtype=float).reshape(-1)
+    BW = pd.DataFrame({"grid": grid, "bw": bw})
 
-    dataUnique = lpbwdensity_fn.__lpdensityUnique(np.sort(data))["unique"]
-
-    for i in range(ng):
-        BW["nh"][i] = sum(abs(data - BW["grid"][i]) <= BW["bw"][i])
-        BW["nhu"][i] = sum(abs(dataUnique - BW["grid"][i]) <= BW["bw"][i])
+    data_sorted = np.sort(data)
+    dataUnique = np.unique(data_sorted)
+    lower = grid - bw
+    upper = grid + bw
+    BW["nh"] = np.searchsorted(data_sorted, upper, side="right") - np.searchsorted(
+        data_sorted, lower, side="left"
+    )
+    BW["nhu"] = np.searchsorted(dataUnique, upper, side="right") - np.searchsorted(
+        dataUnique, lower, side="left"
+    )
 
     return bw_output(
         BW,

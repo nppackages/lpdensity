@@ -8,11 +8,56 @@ import pandas as pd
 import scipy.stats as spstat
 from . import lpdensity_fn
 from . import lpbwdensity_fn
+from ._validation import (
+    as_nonnegative_integer,
+    as_numeric_vector,
+    as_scalar,
+    normalize_bwselect,
+)
 import plotnine as pn
 
 pd.options.mode.chained_assignment = None
 
-warnings.filterwarnings("ignore")
+
+def _ci_critical_value(cov_mat, se, alpha, ci_uniform=False, ci_simul=2000):
+    pointwise = spstat.norm.ppf(1 - alpha / 2)
+    if not ci_uniform:
+        return pointwise
+
+    try:
+        ci_simul = math.ceil(float(np.asarray(ci_simul, dtype=float).reshape(-1)[0]))
+    except (IndexError, TypeError, ValueError):
+        warnings.warn(
+            "Option CIsimul incorrectly specified. Will only use pointwise confidence intervals.",
+            RuntimeWarning,
+        )
+        return pointwise
+
+    if ci_simul < 2:
+        warnings.warn(
+            "Option CIsimul incorrectly specified. Will only use pointwise confidence intervals.",
+            RuntimeWarning,
+        )
+        return pointwise
+
+    se = np.asarray(se, dtype=float)
+    corr_mat = np.asarray(cov_mat, dtype=float) * np.outer(1 / se, 1 / se)
+    try:
+        is_psd = np.all(np.linalg.eigvalsh(corr_mat) >= -100 * np.finfo(float).eps)
+    except np.linalg.LinAlgError:
+        is_psd = False
+
+    if not is_psd:
+        warnings.warn(
+            "Variance-Covariance is not positive semidefinite. Will only use pointwise confidence intervals.",
+            RuntimeWarning,
+        )
+        return pointwise
+
+    normal_simul = np.random.multivariate_normal(
+        mean=np.zeros(corr_mat.shape[0]), cov=corr_mat, size=ci_simul
+    )
+    return np.quantile(np.max(np.abs(normal_simul), axis=1), 1 - alpha)
 
 
 def lpdensity(
@@ -83,27 +128,16 @@ def lpdensity(
     ##   INPUT ERROR HANDLING   ##
     ##############################
 
-    # data
-    data = pd.DataFrame(data)
-    if data.isnull().values.any():
-        raise Exception(data.isnull().sum() + "missing observation(s) are ignored.\n")
-        data = data.dropna(axis=0)
-
+    data = as_numeric_vector(data, "Data")
     n = len(data)
-    data = np.array(data).reshape(
-        n,
-    )
-    if n == 0 or not np.isscalar(n):
-        raise Exception("Data should be numeric, and cannot be empty.")
 
     # grid
     if grid is None:
         grid = np.quantile(data, np.arange(0.05, 0.95, 0.05))
         ng = len(grid)
     else:
+        grid = as_numeric_vector(grid, "Grid points")
         ng = len(grid)
-        if not np.isreal(grid).any():
-            raise Exception("Grid points should be numeric.")
 
     if p is None:
         p = 2
@@ -119,27 +153,21 @@ def lpdensity(
 
     if v is None:
         v = min(1, p)
-    elif not np.isscalar(q) or v not in range(21) or v > p:
+    elif not np.isscalar(v) or v not in range(21) or v > p:
         raise Exception("Derivative order v incorrectly specified")
 
     bw_list = ["mse-dpi", "imse-dpi", "mse-rot", "imse-rot"]
     if bw is None:
-        if len(bwselect) == 0:
-            bwselect = "mse-dpi"
-        else:
-            bwselect = bwselect.lower()
-            if bwselect not in bw_list:
-                raise Exception("bwselect incorrectly specified")
-    elif len(bw) == 1:
-        if not np.isreal(bw) or any(bw) < 0:
+        bwselect = normalize_bwselect(bwselect)
+        if bwselect not in bw_list:
+            raise Exception("bwselect incorrectly specified")
+    else:
+        bw = as_numeric_vector(bw, "Bandwidth")
+        if np.any(bw <= 0):
             raise Exception("Bandwidth incorrectly specified.")
-        else:
+        if len(bw) == 1:
             bw = np.repeat(bw, ng)
             bwselect = "user provided"
-    else:
-        bw = np.asarray(bw)
-        if not np.isreal(bw):
-            raise Exception("Bandwidth incorrectly specified.")
         elif len(bw) != ng:
             raise Exception("Bandwidth has to be the same length as grid.")
         else:
@@ -147,8 +175,7 @@ def lpdensity(
 
     # kernel
     if kernel is None:
-        flag_no_kernel = True
-        kernel = "epanechnikov"
+        kernel = "triangular"
     else:
         kernel = kernel.lower()
         if kernel not in ["triangular", "uniform", "epanechnikov"]:
@@ -157,34 +184,28 @@ def lpdensity(
     # Cweights
     if Cweights is None:
         Cweights = np.repeat(1, n)
-    elif not np.isreal(Cweights).any():
-        raise Exception("Counterfactual weights incorrectly specified.")
-    elif len(Cweights) != n:
-        raise Exception("Counterfactual weights should have the same length as sample.")
-
-    if isinstance(Cweights, pd.Series):
-        Cweights = Cweights.to_numpy()
+    else:
+        Cweights = as_numeric_vector(Cweights, "Counterfactual weights")
+        if len(Cweights) != n:
+            raise Exception("Counterfactual weights should have the same length as sample.")
 
     # Pweights
     if Pweights is None:
         Pweights = np.repeat(1, n)
-    elif not np.isreal(Pweights).any():
-        raise Exception("Probability weights incorrectly specified.")
-    elif len(Pweights) != n:
-        raise Exception("Probability weights should have the same length as sample.")
-    elif any(x < 0 for x in Pweights) == True:
-        raise Exception("Probability weights should be nonnegative.")
-
-    if isinstance(Pweights, pd.Series):
-        Pweights = Pweights.to_numpy()
+    else:
+        Pweights = as_numeric_vector(Pweights, "Probability weights")
+        if len(Pweights) != n:
+            raise Exception("Probability weights should have the same length as sample.")
+        if np.any(Pweights < 0):
+            raise Exception("Probability weights should be nonnegative.")
 
     # scale
     if scale is None:
         scale = 1
-    elif len(scale) != 1 or not np.isreal(scale) or scale[0] <= 0:
-        raise Exception("Scale incorrectly specified.")
     else:
-        scale = scale[0]
+        scale = as_scalar(scale, "Scale")
+        if scale <= 0:
+            raise Exception("Scale incorrectly specified.")
 
     # regularize
     if regularize is None:
@@ -207,44 +228,38 @@ def lpdensity(
     # nLocalMin
     if nLocalMin is None:
         nLocalMin = 20 + p + 1
-    if not np.isreal(nLocalMin) or np.isnan(nLocalMin):
-        raise Exception("Option nLocalMin incorrectly specified.")
-    elif math.ceil(nLocalMin) < 0:
-        raise Exception("Option nLocalMin incorrectly specified.")
     else:
-        nLocalMin = math.ceil(nLocalMin)
+        nLocalMin = as_nonnegative_integer(nLocalMin, "nLocalMin")
 
     # nUniqueMin
     if nUniqueMin is None:
         nUniqueMin = 20 + p + 1
-    if not np.isreal(nUniqueMin) or np.isnan(nUniqueMin):
-        raise Exception("Option nUniqueMin incorrectly specified.")
-    elif math.ceil(nUniqueMin) < 0:
-        raise Exception("Option nUniqueMin incorrectly specified.")
     else:
-        nUniqueMin = math.ceil(nUniqueMin)
+        nUniqueMin = as_nonnegative_integer(nUniqueMin, "nUniqueMin")
 
-        #########################
-        ##   Sample Trimming   ##
-        #########################
+    #########################
+    ##   Sample Trimming   ##
+    #########################
 
-        # trim_index = (Pweights == 0)
-        # if np.all(trim_index==True):
-        # raise Exception("All weights are zero.")
-        # else:
-        # data = data[trim_index == False]
-        # Cweights = Cweights[trim_index == False]
-        # Pweights = Pweights[trim_index == False]
+    # trim_index = (Pweights == 0)
+    # if np.all(trim_index==True):
+    # raise Exception("All weights are zero.")
+    # else:
+    # data = data[trim_index == False]
+    # Cweights = Cweights[trim_index == False]
+    # Pweights = Pweights[trim_index == False]
 
-        if abs(sum(Cweights * Pweights)) <= np.finfo(float).eps * 10:
-            raise Exception(
-                "Composited weights (Cweights * Pweights) are numerically zero."
-            )
+    if abs(sum(Cweights * Pweights)) <= np.finfo(float).eps * 10:
+        raise Exception(
+            "Composited weights (Cweights * Pweights) are numerically zero."
+        )
 
     #############################
     ##   Bandwidth Selection   ##
     #############################
-    if bwselect == "mse-dpi":
+    if bwselect == "user provided":
+        bw = np.asarray(bw, dtype=float)
+    elif bwselect == "mse-dpi":
         bw = lpbwdensity_fn.__bw_MSE(
             data=data,
             grid=grid,
@@ -437,45 +452,9 @@ class lpdensity_output:
         print("Bandwidth Method:".ljust(fw), str(self.bwselect).rjust(25))
         print("")
 
-        CIuniform = False
         alpha = 0.05
-        # critical value
         ci_df = pd.DataFrame(columns=["CI_l_q", "CI_r_q"])
-
-        if CIuniform == True:
-            if np.isnan(CIsimul):
-                raise warnings.warn(
-                    "Option CIsimul incorrectly specified. Will only plot pointwise confidence intervals."
-                )
-                z_val = spstat.norm.ppf(1 - alpha / 2)
-            elif math.ceil(CIsimul) < 2:
-                raise warnings.warn(
-                    "Option CIsimul incorrectly specified. Will only plot pointwise confidence intervals."
-                )
-                z_val = spstat.norm.ppf(1 - alpha / 2)
-            else:
-                corrMat = self.CovMat_q.mul(1 / self.Estimate["se_q"], axis=0).mul(
-                    1 / self.Estimate["se_q"], axis=1
-                )
-                # cehck PSD matrix
-                if np.all(np.linalg.eigvals(corrMat) >= 0):
-                    # simulate multivariate normal
-                    normalSimul = np.random.multivariate_normal(
-                        mean=np.repeat(0, len(self.CovMat_q)), cov=corrMat, size=2000
-                    )
-                    # comput estimated quantile
-                    z_val = np.quantile(
-                        list(map(lambda x: max(abs(x)), normalSimul)), 1 - alpha
-                    )
-
-                else:
-                    # exception for non-PSD covariance matrix
-                    raise warnings.warn(
-                        "Variance-Covariance is not positive semidefinite. Will only plot pointwise confidence intervals."
-                    )
-                    z_val = spstat.norm.ppf(1 - alpha / 2)
-        else:
-            z_val = spstat.norm.ppf(1 - alpha / 2)
+        z_val = _ci_critical_value(self.CovMat_q, self.Estimate["se_q"], alpha)
 
         if self.p == self.q:
             ci_df["CI_l_q"] = self.Estimate["f_p"] - z_val * self.Estimate["se_p"]
@@ -591,42 +570,9 @@ class lpdensity_output:
         estimate_df["f_p"] = self.Estimate["f_p"]
         estimate_df["f_q"] = self.Estimate["f_q"]
 
-        # critical value
-        if CIuniform == True:
-            if np.isnan(CIsimul):
-                raise warnings.warn(
-                    "Option CIsimul incorrectly specified. Will only plot pointwise confidence intervals."
-                )
-                z_val = spstat.norm.ppf(1 - alpha / 2)
-            elif math.ceil(CIsimul) < 2:
-                raise warnings.warn(
-                    "Option CIsimul incorrectly specified. Will only plot pointwise confidence intervals."
-                )
-                z_val = spstat.norm.ppf(1 - alpha / 2)
-            else:
-                CIsimul = math.ceil(CIsimul)
-                corrMat = self.CovMat_q.mul(1 / self.Estimate["se_q"], axis=0).mul(
-                    1 / self.Estimate["se_q"], axis=1
-                )
-                # cehck PSD matrix
-                if np.all(np.linalg.eigvals(corrMat) >= 0):
-                    # simulate multivariate normal
-                    normalSimul = np.random.multivariate_normal(
-                        mean=np.repeat(0, len(self.CovMat_q)), cov=corrMat, size=CIsimul
-                    )
-                    # comput estimated quantile
-                    z_val = np.quantile(
-                        list(map(lambda x: max(abs(x)), normalSimul)), 1 - alpha
-                    )
-
-                else:
-                    # exception for non-PSD covariance matrix
-                    raise warnings.warn(
-                        "Variance-Covariance is not positive semidefinite. Will only plot pointwise confidence intervals."
-                    )
-                    z_val = spstat.norm.ppf(1 - alpha / 2)
-        else:
-            z_val = spstat.norm.ppf(1 - alpha / 2)
+        z_val = _ci_critical_value(
+            self.CovMat_q, self.Estimate["se_q"], alpha, CIuniform, CIsimul
+        )
 
         estimate_df["CI_l_p"] = self.Estimate["f_p"] - z_val * self.Estimate["se_p"]
         estimate_df["CI_r_p"] = self.Estimate["f_p"] + z_val * self.Estimate["se_p"]
@@ -690,42 +636,9 @@ class lpdensity_output:
 
         data_x = self.Estimate[["grid", "f_p", "f_q", "se_p", "se_q"]]
 
-        # critical value
-        if CIuniform == True:
-            if np.isnan(CIsimul):
-                raise warnings.warn(
-                    "Option CIsimul incorrectly specified. Will only plot pointwise confidence intervals."
-                )
-                z_val = spstat.norm.ppf(1 - alpha / 2)
-            elif math.ceil(CIsimul) < 2:
-                raise warnings.warn(
-                    "Option CIsimul incorrectly specified. Will only plot pointwise confidence intervals."
-                )
-                z_val = spstat.norm.ppf(1 - alpha / 2)
-            else:
-                CIsimul = math.ceil(CIsimul)
-                corrMat = self.CovMat_q.mul(1 / self.Estimate["se_q"], axis=0).mul(
-                    1 / self.Estimate["se_q"], axis=1
-                )
-                # cehck PSD matrix
-                if np.all(np.linalg.eigvals(corrMat) >= 0):
-                    # simulate multivariate normal
-                    normalSimul = np.random.multivariate_normal(
-                        mean=np.repeat(0, len(self.CovMat_q)), cov=corrMat, size=CIsimul
-                    )
-                    # comput estimated quantile
-                    z_val = np.quantile(
-                        list(map(lambda x: max(abs(x)), normalSimul)), 1 - alpha
-                    )
-
-                else:
-                    # exception for non-PSD covariance matrix
-                    raise warnings.warn(
-                        "Variance-Covariance is not positive semidefinite. Will only plot pointwise confidence intervals."
-                    )
-                    z_val = spstat.norm.ppf(1 - alpha / 2)
-        else:
-            z_val = spstat.norm.ppf(1 - alpha / 2)
+        z_val = _ci_critical_value(
+            self.CovMat_q, self.Estimate["se_q"], alpha, CIuniform, CIsimul
+        )
 
         data_x["CI_l"] = data_x["f_q"] - z_val * data_x["se_q"]
         data_x["CI_r"] = data_x["f_q"] + z_val * data_x["se_q"]

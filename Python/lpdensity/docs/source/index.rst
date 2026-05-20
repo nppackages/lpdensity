@@ -7,8 +7,8 @@ lpdensity Homepage
 =====================================
 ``lpdensity`` implements the local polynomial regression based density (and derivatives) estimator and bandwidth selection tools proposed in Cattaneo, Jansson and Ma (2020).  Robust bias-corrected inference methods,
 both pointwise (confidence intervals) and uniform (confidence bands), are also implemented
-following the results in Cattaneo, Jansson and Ma (2020, 2021a).
-See Cattaneo, Jansson and Ma (2021b) for more implementation details and illustrations.
+following the results in Cattaneo, Jansson and Ma (2020, 2024).
+See Cattaneo, Jansson and Ma (2022) for more implementation details and illustrations.
 
 Install the ``lpdensity`` package by running
 ``pip install lpdensity``.
@@ -39,23 +39,23 @@ Cattaneo, M. D., M. Jansson, and X. Ma. 2020.
 `Simple Local Polynomial Density Estimators <https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2020_JASA.pdf>`_.
 *Journal of the American Statistical Association*, 115(531): 1449-1455.
 
-Cattaneo, M. D., M. Jansson, and X. Ma. 2021a.
-`Local Regression Distribution Estimators <https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2021_JoE.pdf>`_
-*Journal of Econometrics*, forthcoming.
+Cattaneo, M. D., M. Jansson, and X. Ma. 2024.
+`Local Regression Distribution Estimators <https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2024_JoE.pdf>`_.
+*Journal of Econometrics*, 240(2): 105074.
 
-Cattaneo, M. D., M. Jansson, and X. Ma. 2021b.
-`lpdensity: Local Polynomial Density Estimation and Inference <https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2021_JSS.pdf>`_
-*Journal of Statistical Software*, forthcoming.
+Cattaneo, M. D., M. Jansson, and X. Ma. 2022.
+`lpdensity: Local Polynomial Density Estimation and Inference <https://nppackages.github.io/references/Cattaneo-Jansson-Ma_2022_JSS.pdf>`_.
+*Journal of Statistical Software*, 101(2): 1-25.
 
 Authors
 -------
-Matias D. Cattaneo, Princeton University. (cattaneo@princeton.edu).
+Matias D. Cattaneo (maintainer), Princeton University. (matias.d.cattaneo@gmail.com).
 
-Rajita Chandak (maintainer), Princeton University. (rchandak@princeton.edu). 
+Rajita Chandak. (rajita.chandak@gmail.com).
 
-Michael Jansson, University of California Berkeley. (mjansson@econ.berkeley.edu).
+Michael Jansson, University of California Berkeley. (michael.jansson.berkeley@gmail.com).
 
-Xinwei Ma (maintainer), University of California San Diego. (x1ma@ucsd.edu).
+Xinwei Ma, University of California San Diego. (xinweima.pku@gmail.com).
 
 
 .. toctree::
@@ -63,5 +63,3 @@ Xinwei Ma (maintainer), University of California San Diego. (x1ma@ucsd.edu).
    :caption: Contents:
   
    modules
-
-

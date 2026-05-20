@@ -7,11 +7,11 @@
 #' @param ... Additional options.
 #'
 #' @author
-#' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
+#' Matias D. Cattaneo (maintainer), Princeton University. \email{matias.d.cattaneo@gmail.com}.
 #'
-#' Michael Jansson, University of California Berkeley. \email{mjansson@econ.berkeley.edu}.
+#' Michael Jansson, University of California Berkeley. \email{michael.jansson.berkeley@gmail.com}.
 #'
-#' Xinwei Ma (maintainer), University of California San Diego. \email{x1ma@ucsd.edu}.
+#' Xinwei Ma, University of California San Diego. \email{xinweima.pku@gmail.com}.
 #'
 #' @seealso \code{\link{lpdensity}} for local polynomial density estimation.
 #'
@@ -63,11 +63,11 @@ print.lpdensity <- function(x, ...) {
 #'   to construct critical values (default is \code{2000}).
 #'
 #' @author
-#' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
+#' Matias D. Cattaneo (maintainer), Princeton University. \email{matias.d.cattaneo@gmail.com}.
 #'
-#' Michael Jansson, University of California Berkeley. \email{mjansson@econ.berkeley.edu}.
+#' Michael Jansson, University of California Berkeley. \email{michael.jansson.berkeley@gmail.com}.
 #'
-#' Xinwei Ma (maintainer), University of California San Diego. \email{x1ma@ucsd.edu}.
+#' Xinwei Ma, University of California San Diego. \email{xinweima.pku@gmail.com}.
 #'
 #' @seealso \code{\link{lpdensity}} for local polynomial density estimation.
 #'
@@ -99,7 +99,7 @@ summary.lpdensity <- function(object, ...) {
   if (is.null(args[['alpha']])) { alpha <- 0.05 } else { alpha <- args[['alpha']] }
   if (is.null(args[['sep']]))   { sep <- 5 } else { sep <- args[['sep']] }
   if (is.null(args[['CIuniform']]))   { CIuniform <- FALSE } else { CIuniform <- args[['CIuniform']] }
-  if (is.null(args[['CIsimul']]))   { CIsimul <- 2000 } else { sep <- args[['CIsimul']] }
+  if (is.null(args[['CIsimul']]))   { CIsimul <- 2000 } else { CIsimul <- args[['CIsimul']] }
 
   if (is.null(args[['grid']]) & is.null(args[['gridIndex']])) {
     gridIndex <- 1:nrow(x$Estimate)
@@ -355,11 +355,11 @@ summary.lpdensity <- function(object, ...) {
 #' A stadnard \code{ggplot} object is returned, hence can be used for further customization.
 #'
 #' @author
-#' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
+#' Matias D. Cattaneo (maintainer), Princeton University. \email{matias.d.cattaneo@gmail.com}.
 #'
-#' Michael Jansson, University of California Berkeley. \email{mjansson@econ.berkeley.edu}.
+#' Michael Jansson, University of California Berkeley. \email{michael.jansson.berkeley@gmail.com}.
 #'
-#' Xinwei Ma (maintainer), University of California San Diego. \email{x1ma@ucsd.edu}.
+#' Xinwei Ma, University of California San Diego. \email{xinweima.pku@gmail.com}.
 #'
 #' @seealso \code{\link{lpdensity}} for local polynomial density estimation.
 #'
@@ -803,11 +803,11 @@ plot.lpdensity <- function(..., alpha=NULL,
 #' A stadnard \code{ggplot} object is returned, hence can be used for further customization.
 #'
 #' @author
-#' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
+#' Matias D. Cattaneo (maintainer), Princeton University. \email{matias.d.cattaneo@gmail.com}.
 #'
-#' Michael Jansson, University of California Berkeley. \email{mjansson@econ.berkeley.edu}.
+#' Michael Jansson, University of California Berkeley. \email{michael.jansson.berkeley@gmail.com}.
 #'
-#' Xinwei Ma (maintainer), University of California San Diego. \email{x1ma@ucsd.edu}.
+#' Xinwei Ma, University of California San Diego. \email{xinweima.pku@gmail.com}.
 #'
 #' @export
 lpdensity.plot <- plot.lpdensity
@@ -824,11 +824,11 @@ lpdensity.plot <- plot.lpdensity
 #' A matrix containing grid points and density estimates using p- and q-th order local polynomials.
 #'
 #' @author
-#' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
+#' Matias D. Cattaneo (maintainer), Princeton University. \email{matias.d.cattaneo@gmail.com}.
 #'
-#' Michael Jansson, University of California Berkeley. \email{mjansson@econ.berkeley.edu}.
+#' Michael Jansson, University of California Berkeley. \email{michael.jansson.berkeley@gmail.com}.
 #'
-#' Xinwei Ma (maintainer), University of California San Diego. \email{x1ma@ucsd.edu}.
+#' Xinwei Ma, University of California San Diego. \email{xinweima.pku@gmail.com}.
 #'
 #' @seealso \code{\link{lpdensity}} for local polynomial density estimation.
 #'
@@ -862,11 +862,11 @@ coef.lpdensity <- function(object, ...) {
 #' \item{CovMat_q}{The variance-covariance matrix corresponding to \code{f_q}.}
 #'
 #' @author
-#' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
+#' Matias D. Cattaneo (maintainer), Princeton University. \email{matias.d.cattaneo@gmail.com}.
 #'
-#' Michael Jansson, University of California Berkeley. \email{mjansson@econ.berkeley.edu}.
+#' Michael Jansson, University of California Berkeley. \email{michael.jansson.berkeley@gmail.com}.
 #'
-#' Xinwei Ma (maintainer), University of California San Diego. \email{x1ma@ucsd.edu}.
+#' Xinwei Ma, University of California San Diego. \email{xinweima.pku@gmail.com}.
 #'
 #' @seealso \code{\link{lpdensity}} for local polynomial density estimation.
 #'
@@ -909,11 +909,11 @@ vcov.lpdensity <- function(object, ...) {
 #' A matrix containing grid points and confidence interval end points using p- and q-th order local polynomials.
 #'
 #' @author
-#' Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
+#' Matias D. Cattaneo (maintainer), Princeton University. \email{matias.d.cattaneo@gmail.com}.
 #'
-#' Michael Jansson, University of California Berkeley. \email{mjansson@econ.berkeley.edu}.
+#' Michael Jansson, University of California Berkeley. \email{michael.jansson.berkeley@gmail.com}.
 #'
-#' Xinwei Ma (maintainer), University of California San Diego. \email{x1ma@ucsd.edu}.
+#' Xinwei Ma, University of California San Diego. \email{xinweima.pku@gmail.com}.
 #'
 #' @seealso \code{\link{lpdensity}} for local polynomial density estimation.
 #'
@@ -951,7 +951,7 @@ confint.lpdensity <- function(object, parm = NULL, level = NULL, ...) {
 
   if (is.null(args[['alpha']])) { alpha <- 0.05 } else { alpha <- args[['alpha']] }
   if (is.null(args[['CIuniform']]))   { CIuniform <- FALSE } else { CIuniform <- args[['CIuniform']] }
-  if (is.null(args[['CIsimul']]))   { CIsimul <- 2000 } else { sep <- args[['CIsimul']] }
+  if (is.null(args[['CIsimul']]))   { CIsimul <- 2000 } else { CIsimul <- args[['CIsimul']] }
 
   if (is.null(args[['grid']]) & is.null(args[['gridIndex']])) {
     gridIndex <- 1:nrow(x$Estimate)

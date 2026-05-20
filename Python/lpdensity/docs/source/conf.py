@@ -14,16 +14,16 @@ import os
 import sys
 
 sys.path.insert(0, os.path.abspath("../../src/"))
-autodoc_mock_imports = ["numpy", "scipy", "pandas", "sympy", "statistics", "plotnine"]
+autodoc_mock_imports = ["numpy", "scipy", "pandas", "sympy", "plotnine"]
 
 # -- Project information -----------------------------------------------------
 
 project = "lpdensity"
-copyright = "2021, Rajita Chandak"
-author = "Rajita Chandak"
+copyright = "2026, Matias D. Cattaneo"
+author = "Matias D. Cattaneo"
 
 # The full version, including alpha/beta/rc tags
-release = "1.0.3"
+release = "3.0.0"
 
 
 # -- General configuration ---------------------------------------------------

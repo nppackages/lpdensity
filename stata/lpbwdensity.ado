@@ -2,7 +2,7 @@
 * LPDENSITY STATA PACKAGE -- lpbwdensity
 * Authors: Matias D. Cattaneo, Michael Jansson, Xinwei Ma
 ********************************************************************************
-*!version 2.5 2024-10-06
+*!version 3.0 2026-05-20
 
 capture program drop lpbwdensity
 
@@ -27,9 +27,28 @@ syntax 	varlist(max=1) 				///
 		RGRId(varname)				///
 		RINDex(varname)				///
 		SEParator(integer 5) 		///
+		PRECision(string)			///
 		]
 	
 marksample touse
+
+********************************************************************************
+**** error check: precision()
+if ("`precision'" == "") {
+	local precision = "double"
+}
+else {
+	local precision = lower("`precision'")
+	if ("`precision'" != "double" & "`precision'" != "single") {
+		di as err `"precision(): incorrectly specified: options(single, double)"'
+		exit 198
+	}
+}
+
+local storage_type = "double"
+if ("`precision'" == "single") {
+	local storage_type = "float"
+}
 
 ********************************************************************************
 **** error check: main variable
@@ -52,7 +71,7 @@ else {
 **** error check: grid()
 if ("`grid'" == "") {
 	tempvar temp_grid
-	qui pctile `temp_grid' = `x' if `touse', nq(20)
+	qui pctile `storage_type' `temp_grid' = `x' if `touse', nq(20)
 	local ng = 19
 } 
 else {
@@ -160,7 +179,7 @@ else {
 **** error check: cweights()
 if ("`cweights'" == "") {
 	tempvar temp_cweights
-	qui gen `temp_cweights' = `x' * 0 + 1
+	qui gen `storage_type' `temp_cweights' = `x' * 0 + 1
 }
 else {
 	cap confirm numeric variable `cweights'
@@ -183,7 +202,7 @@ else {
 **** error check: pweights()
 if ("`pweights'" == "") {
 	tempvar temp_pweights
-	qui gen `temp_pweights' = `x' * 0 + 1
+	qui gen `storage_type' `temp_pweights' = `x' * 0 + 1
 }
 else {
 	cap confirm numeric variable `pweights'
@@ -247,7 +266,7 @@ if (`nuniquemin' < 0) {
 
 tempvar temp_touse
 
-qui gen `temp_touse' = `touse'
+qui gen byte `temp_touse' = `touse'
 
 mata{
 	x = st_data(., "`x'", "`temp_touse'") //; x
@@ -290,13 +309,14 @@ mata{
 
 	genvars = st_local("genvars")
 	if (genvars != "") {
-		(void) 	st_addvar("double", 	invtokens((genvars, "grid"), 	"_"))
+		storage_type = st_local("storage_type")
+		(void) 	st_addvar(storage_type, invtokens((genvars, "grid"), 	"_"))
 				st_store(Result[., 4], 	invtokens((genvars, "grid"), 	"_"), Result[., 1])
 					
-		(void) 	st_addvar("double", 	invtokens((genvars, "bw"), 		"_"))
+		(void) 	st_addvar(storage_type, invtokens((genvars, "bw"), 		"_"))
 				st_store(Result[., 4], 	invtokens((genvars, "bw"), 		"_"), Result[., 2])
 					
-		(void) 	st_addvar("double", 	invtokens((genvars, "nh"), 		"_"))
+		(void) 	st_addvar(storage_type, invtokens((genvars, "nh"), 		"_"))
 				st_store(Result[., 4], 	invtokens((genvars, "nh"), 		"_"), Result[., 3])
 	}
 	
@@ -380,6 +400,7 @@ ereturn scalar p = `p'
 ereturn scalar v = `v'
 ereturn local kernel = "`kernel'"
 ereturn local bwselect = "`bwselect'"
+ereturn local precision = "`precision'"
 matrix colnames Result = grid bw nh
 ereturn matrix result = Result
 

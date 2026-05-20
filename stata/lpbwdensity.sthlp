@@ -1,5 +1,5 @@
 {smcl}
-{* *!version 2.5 2024-10-06}{...}
+{* *!version 3.0 2026-05-20}{...}
 
 {title:Title}
 
@@ -28,7 +28,8 @@
 {p 16 20}{cmd:genvars(}{it:NewVarName}{cmd:)}{p_end}
 {p 16 20}{cmd:rgrid(}{it:Var}{cmd:)} 
 {cmd:rindex(}{it:Var}{cmd:)} 
-{cmd:separator(}{it:#}{cmd:)}{p_end}
+{cmd:separator(}{it:#}{cmd:)}
+{cmd:precision(}{it:Precision}{cmd:)}{p_end}
 {p 16 20}]{p_end}
 
 {synoptset 28 tabbed}{...}
@@ -109,6 +110,8 @@ generated: {p_end}
 {p 4 8}{opt rind:ex}({it:var}) specifies a set of indices to display the results. This option will be ignored if {cmd:rgrid(}{it:Var}{cmd:)} is provided.{p_end}
 
 {p 4 8}{opt sep:arator}({it:#}) draw a seperation line after every {it:#} variables; default is {cmd:separator(5)}.{p_end}
+
+{p 4 8}{opt prec:ision}({it:Precision}) controls the storage type for command-generated temporary and {cmd:genvars()} variables. Options are {cmd:double} (default) and {cmd:single}. Mata calculations and returned matrices are double precision; for full double precision, user-supplied data, grid, bandwidth, and weight variables should also be stored as {cmd:double}.{p_end}
 	
 		
 {marker examples}{...}
@@ -140,6 +143,7 @@ generated: {p_end}
 {p2col 5 20 24 2: Macros}{p_end}
 {synopt:{cmd:e(bwselect)}}option {cmd:bwselect(}{it:BwMethod}{cmd:)}{p_end}
 {synopt:{cmd:e(kernel)}}option {cmd:kernel(}{it:KernelFn}{cmd:)}{p_end}
+{synopt:{cmd:e(precision)}}option {cmd:precision(}{it:Precision}{cmd:)}{p_end}
 {p2col 5 20 24 2: Matrices}{p_end}
 {synopt:{cmd:e(result)}}estimation result{p_end}
 
@@ -163,12 +167,10 @@ generated: {p_end}
 {title:Authors}
 
 {p 4 8}Matias D. Cattaneo, Princeton University, Princeton, NJ.
-{browse "mailto:cattaneo@princeton.edu":cattaneo@princeton.edu}.{p_end}
+{browse "mailto:matias.d.cattaneo@gmail.com":matias.d.cattaneo@gmail.com}.{p_end}
 
 {p 4 8}Michael Jansson, University of California Berkeley, Berkeley, CA.
-{browse "mailto:mjansson@econ.berkeley.edu":mjansson@econ.berkeley.edu}.{p_end}
+{browse "mailto:michael.jansson.berkeley@gmail.com":michael.jansson.berkeley@gmail.com}.{p_end}
 
 {p 4 8}Xinwei Ma, University of California San Diego, La Jolla, CA.
-{browse "mailto:x1ma@ucsd.edu":x1ma@ucsd.edu}.{p_end}
-
-
+{browse "mailto:xinweima.pku@gmail.com":xinweima.pku@gmail.com}.{p_end}

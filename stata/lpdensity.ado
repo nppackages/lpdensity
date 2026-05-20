@@ -2,7 +2,7 @@
 * LPDENSITY STATA PACKAGE -- lpdensity
 * Authors: Matias D. Cattaneo, Michael Jansson, Xinwei Ma
 ********************************************************************************
-*!version 2.5 2024-10-06
+*!version 3.0 2026-05-20
 
 capture program drop lpdensity
 
@@ -33,6 +33,7 @@ syntax 	varlist(max=1) 				///
 		CIUniform					///
 		CISimul(integer 2000)		///
 		SEParator(integer 5)		///
+		PRECision(string)			///
 		PLot						///
 		ESTYpe(string)				///
 		ESLIne_options(string)		///
@@ -47,6 +48,24 @@ syntax 	varlist(max=1) 				///
 		]
 
 marksample touse
+
+********************************************************************************
+**** error check: precision()
+if ("`precision'" == "") {
+	local precision = "double"
+}
+else {
+	local precision = lower("`precision'")
+	if ("`precision'" != "double" & "`precision'" != "single") {
+		di as err `"precision(): incorrectly specified: options(single, double)"'
+		exit 198
+	}
+}
+
+local storage_type = "double"
+if ("`precision'" == "single") {
+	local storage_type = "float"
+}
 
 ********************************************************************************
 **** error check: main variable
@@ -69,7 +88,7 @@ else {
 **** error check: grid()
 if ("`grid'" == "") {
 	tempvar temp_grid	
-	qui pctile `temp_grid' = `x' if `touse', nq(20)
+	qui pctile `storage_type' `temp_grid' = `x' if `touse', nq(20)
 	local ng = 19
 } 
 else {
@@ -204,7 +223,7 @@ if (`cisimul' <= 0) {
 **** error check: cweights()
 if ("`cweights'" == "") {
 	tempvar temp_cweights
-	qui gen `temp_cweights' = `x' * 0 + 1
+	qui gen `storage_type' `temp_cweights' = `x' * 0 + 1
 }
 else {
 	cap confirm numeric variable `cweights'
@@ -227,7 +246,7 @@ else {
 **** error check: pweights()
 if ("`pweights'" == "") {
 	tempvar temp_pweights
-	qui gen `temp_pweights' = `x' * 0 + 1
+	qui gen `storage_type' `temp_pweights' = `x' * 0 + 1
 }
 else {
 	cap confirm numeric variable `pweights'
@@ -307,9 +326,9 @@ if ("`bw'" == "") {
 		local flag_stdvar = ""
 	} 
 	
-	qui lpbwdensity `x' if `touse', grid(`temp_grid') p(`p') v(`v') bwselect(`bwselect') kernel(`kernel') cweights(`temp_cweights') pweights(`temp_pweights') genvars(`temp_lpbwdensity') separator(1) `flag_regularize' `flag_masspoints' `flag_stdvar'
+	qui lpbwdensity `x' if `touse', grid(`temp_grid') p(`p') v(`v') bwselect(`bwselect') kernel(`kernel') cweights(`temp_cweights') pweights(`temp_pweights') genvars(`temp_lpbwdensity') separator(1) precision(`precision') `flag_regularize' `flag_masspoints' `flag_stdvar'
 	
-	qui gen `temp_bw' = `temp_lpbwdensity'_bw
+	qui gen `storage_type' `temp_bw' = `temp_lpbwdensity'_bw
 	qui capture drop `temp_lpbwdensity'_grid `temp_lpbwdensity'_bw `temp_lpbwdensity'_nh
 }
 else {
@@ -324,10 +343,9 @@ else {
 		} 
 		else {
 			tempvar temp_bw			
-			qui gen `temp_bw' = "`bw'" if `temp_grid' != .
-			capture destring `temp_bw', replace
-			cap confirm numeric variable `temp_bw'
-			if _rc {
+			qui gen `storage_type' `temp_bw' = real("`bw'") if `temp_grid' != .
+			qui count if `temp_bw' != .
+			if (r(N) == 0) {
 				di as err `"bw(): `bw' is not numeric"'
 				exit 198
 			}
@@ -389,7 +407,7 @@ if ("`plot'" != "" & "`genvars'" == "") {
 ********************************************************************************
 **** MATA
 tempvar temp_touse
-qui gen `temp_touse' = `touse'
+qui gen byte `temp_touse' = `touse'
 mata{
 	x = st_data(., "`x'", "`temp_touse'") //; x
 	
@@ -415,46 +433,48 @@ mata{
 	
 	genvars = st_local("genvars")
 	if (genvars != "") {
-		(void) 	st_addvar("double", 	invtokens((genvars, "grid"), 		"_"))
+		storage_type = st_local("storage_type")
+		(void) 	st_addvar(storage_type, invtokens((genvars, "grid"), 		"_"))
 				st_store(Result[., 10], invtokens((genvars, "grid"), 		"_"), Result[., 1])
 					
-		(void) 	st_addvar("double", 	invtokens((genvars, "bw"), 			"_"))
+		(void) 	st_addvar(storage_type, invtokens((genvars, "bw"), 			"_"))
 				st_store(Result[., 10], invtokens((genvars, "bw"), 			"_"), Result[., 2])
 					
-		(void) 	st_addvar("double", 	invtokens((genvars, "nh"), 			"_"))
+		(void) 	st_addvar(storage_type, invtokens((genvars, "nh"), 			"_"))
 				st_store(Result[., 10], invtokens((genvars, "nh"), 			"_"), Result[., 3])
 					
-		(void) 	st_addvar("double", 	invtokens((genvars, "f_p"), 		"_"))
+		(void) 	st_addvar(storage_type, invtokens((genvars, "f_p"), 		"_"))
 				st_store(Result[., 10], invtokens((genvars, "f_p"), 		"_"), Result[., 4])
 					
-		(void) 	st_addvar("double", 	invtokens((genvars, "se_p"), 		"_"))
+		(void) 	st_addvar(storage_type, invtokens((genvars, "se_p"), 		"_"))
 				st_store(Result[., 10], invtokens((genvars, "se_p"), 		"_"), Result[., 6])
 					
-		(void) 	st_addvar("double", 	invtokens((genvars, "CI_l"), 		"_"))
+		(void) 	st_addvar(storage_type, invtokens((genvars, "CI_l"), 		"_"))
 				st_store(Result[., 10], invtokens((genvars, "CI_l"), 		"_"), Result[., 8])
 					
-		(void) 	st_addvar("double", 	invtokens((genvars, "CI_r"), 		"_"))
+		(void) 	st_addvar(storage_type, invtokens((genvars, "CI_r"), 		"_"))
 				st_store(Result[., 10], invtokens((genvars, "CI_r"), 		"_"), Result[., 9])
 					
 		if (`q' > `p') {
-		(void) st_addvar("double", 		invtokens((genvars, "f_q"), 		"_"))
+		(void) st_addvar(storage_type, 	invtokens((genvars, "f_q"), 		"_"))
 				st_store(Result[., 10], invtokens((genvars, "f_q"), 		"_"), Result[., 5])
 		
-		(void) st_addvar("double", 		invtokens((genvars, "se_q"), 		"_"))
+		(void) st_addvar(storage_type, 	invtokens((genvars, "se_q"), 		"_"))
 				st_store(Result[., 10], invtokens((genvars, "se_q"), 		"_"), Result[., 7])
 		}
 	}
 	else if ("`plot'" != "") {
-		(void) 	st_addvar("double", 	"`plot_grid'")
+		storage_type = st_local("storage_type")
+		(void) 	st_addvar(storage_type, "`plot_grid'")
 				st_store(Result[., 10], "`plot_grid'", Result[., 1])
 				
-		(void) st_addvar("double", 		"`plot_f'")
+		(void) st_addvar(storage_type, 	"`plot_f'")
 				st_store(Result[., 10], "`plot_f'", Result[., 4])
 				
-		(void) st_addvar("double", 		"`plot_cil'")
+		(void) st_addvar(storage_type, 	"`plot_cil'")
 				st_store(Result[., 10], "`plot_cil'", Result[., 8])
 				
-		(void) st_addvar("double", 		"`plot_cir'")
+		(void) st_addvar(storage_type, 	"`plot_cir'")
 				st_store(Result[., 10], "`plot_cir'", Result[., 9])
 	}
 	
@@ -663,6 +683,7 @@ ereturn scalar q = `q'
 ereturn scalar v = `v'
 ereturn local kernel = "`kernel'"
 ereturn local bwselect = "`bwselect'"
+ereturn local precision = "`precision'"
 ereturn scalar scale = `scale'
 ereturn scalar level = `level'
 matrix colnames Result = grid bw nh f_p f_q se_p se_q CI_l CI_r

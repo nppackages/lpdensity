@@ -37,7 +37,7 @@ Calonico, S., M. D. Cattaneo, and M. H. Farrell. 2018.
 
   Cattaneo, M. D., M. Jansson, and X. Ma. 2022.
     lpdensity: Local Polynomial Density Estimation and Inference.
-    \emph{Journal of Statistical Software}, 101(2): 1–25.
+    \emph{Journal of Statistical Software}, 101(2): 1-25.
     \doi{10.18637/jss.v101.i02}
 
   Cattaneo, M. D., M. Jansson, and X. Ma. 2023.
@@ -46,9 +46,9 @@ Calonico, S., M. D. Cattaneo, and M. H. Farrell. 2018.
     \doi{10.1016/j.jeconom.2021.01.006}
 }
 \author{
-Matias D. Cattaneo, Princeton University. \email{cattaneo@princeton.edu}.
+Matias D. Cattaneo (maintainer), Princeton University. \email{matias.d.cattaneo@gmail.com}.
 
-Michael Jansson, University of California Berkeley. \email{mjansson@econ.berkeley.edu}.
+Michael Jansson, University of California Berkeley. \email{michael.jansson.berkeley@gmail.com}.
 
-Xinwei Ma (maintainer), University of California San Diego. \email{x1ma@ucsd.edu}.
+Xinwei Ma, University of California San Diego. \email{xinweima.pku@gmail.com}.
 }
