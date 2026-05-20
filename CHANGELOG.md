@@ -12,3 +12,4 @@ Notable project changes are listed from newest to oldest.
 - Regenerated the Stata help PDFs for `lpdensity` and `lpbwdensity`.
 - Added Python, R, and Stata numerical baseline fixtures for a deterministic local-polynomial density example.
 - Added Python compatibility fixes for modern NumPy/pandas behavior in fixed-bandwidth density estimation and bandwidth-selection summaries while preserving numerical agreement with R/Stata baselines.
+- Improved bandwidth-selection internals in Python, R, and Stata, including cached/reused moment calculations and a Stata ROT/IROT weight-ordering fix while preserving existing numerical baselines.

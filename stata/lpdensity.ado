@@ -291,8 +291,8 @@ else {
 
 ********************************************************************************
 **** error check: nlocalmin() nuniquemin()
-if (`nuniquemin' < 0) {
-	local nuniquemin = 20 + `p' + 1
+if (`nlocalmin' < 0) {
+	local nlocalmin = 20 + `p' + 1
 }
 
 if (`nuniquemin' < 0) {

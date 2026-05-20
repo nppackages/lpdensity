@@ -399,7 +399,7 @@ end
 ********************************************************************************
 * Normal DGPs
 ********************************************************************************
-capture mata mata drop lpdensity_norm_dgps()
+capture mata mata drop lpdensity_normDgp()
 
 mata
 real scalar lpdensity_normDgp(real scalar y, real scalar v, real scalar mu, real scalar sigma){
@@ -681,7 +681,10 @@ real matrix lpdensity_bwROT(real colvector data,
 							real scalar nLocalMin,
 							real scalar nUniqueMin){
 							
-data = sort(data, 1)
+ii = order(data, 1)
+data = data[ii, 1]
+if (!all(Cweights :== Cweights[1])) Cweights = Cweights[ii, 1]
+if (!all(Pweights :== Pweights[1])) Pweights = Pweights[ii, 1]
 					
 n 	= length(data)
 ng 	= length(grid)
@@ -715,9 +718,10 @@ C1 = lpdensity_Cgen(p+1, p, kernel=kernel)
 C2 = lpdensity_Cgen(p+2, p, kernel=kernel)
 G  = lpdensity_Ggen(     p, kernel=kernel)
 S2 = lpdensity_Tgen(     p, kernel=kernel)
+S_inv = invsym(S)
 
-bias_dgp[., 1] = bias_dgp[., 1] :* (invsym(S) * C1)[v+1, .]
-bias_dgp[., 2] = bias_dgp[., 2] :* (invsym(S) * C2)[v+1, .]
+bias_dgp[., 1] = bias_dgp[., 1] :* (S_inv * C1)[v+1, .]
+bias_dgp[., 2] = bias_dgp[., 2] :* (S_inv * C2)[v+1, .]
 
 // variance estimate, sample size added
 sd_dgp = J(ng, 1, .)
@@ -725,7 +729,7 @@ if (v > 0) {
 	for (j=1; j<=ng; j++) {
 		sd_dgp[j, 1] = factorial(v) * sqrt(lpdensity_normDgp(grid[j], 1, mean_hat, sd_hat) / n)
 	}
-	sd_dgp = sd_dgp :* sqrt(abs((invsym(S) * G * invsym(S))[v+1, v+1]))
+	sd_dgp = sd_dgp :* sqrt(abs((S_inv * G * S_inv)[v+1, v+1]))
 } 
 else {
 	for (j=1; j<=ng; j++) {
@@ -733,7 +737,7 @@ else {
 		lpdensity_normDgp(grid[j], 0, mean_hat, sd_hat) * (1 - lpdensity_normDgp(grid[j], 0, mean_hat, sd_hat)) /
 		lpdensity_normDgp(grid[j], 1, mean_hat, sd_hat) / (0.5 * n^2))
 	}
-	sd_dgp = sd_dgp :* sqrt(abs((invsym(S) * S2 * invsym(S))[v+1, v+1]))
+	sd_dgp = sd_dgp :* sqrt(abs((S_inv * S2 * S_inv)[v+1, v+1]))
 }
 
 // bandwidth
@@ -795,7 +799,10 @@ real scalar lpdensity_bwIROT(real colvector data,
 							 real scalar nLocalMin,
 							 real scalar nUniqueMin){
 						
-data = sort(data, 1)
+ii = order(data, 1)
+data = data[ii, 1]
+if (!all(Cweights :== Cweights[1])) Cweights = Cweights[ii, 1]
+if (!all(Pweights :== Pweights[1])) Pweights = Pweights[ii, 1]
 					
 n 	= length(data)
 ng 	= length(grid)
@@ -829,9 +836,10 @@ C1 = lpdensity_Cgen(p+1, p, kernel=kernel)
 C2 = lpdensity_Cgen(p+2, p, kernel=kernel)
 G  = lpdensity_Ggen(     p, kernel=kernel)
 S2 = lpdensity_Tgen(     p, kernel=kernel)
+S_inv = invsym(S)
 
-bias_dgp[., 1] = bias_dgp[., 1] :* (invsym(S) * C1)[v+1, .]
-bias_dgp[., 2] = bias_dgp[., 2] :* (invsym(S) * C2)[v+1, .]
+bias_dgp[., 1] = bias_dgp[., 1] :* (S_inv * C1)[v+1, .]
+bias_dgp[., 2] = bias_dgp[., 2] :* (S_inv * C2)[v+1, .]
 
 // variance estimate, sample size added
 sd_dgp = J(ng, 1, .)
@@ -839,7 +847,7 @@ if (v > 0) {
 	for (j=1; j<=ng; j++) {
 		sd_dgp[j, 1] = factorial(v) * sqrt(lpdensity_normDgp(grid[j], 1, mean_hat, sd_hat) / n)
 	}
-	sd_dgp = sd_dgp :* sqrt(abs((invsym(S) * G * invsym(S))[v+1, v+1]))
+	sd_dgp = sd_dgp :* sqrt(abs((S_inv * G * S_inv)[v+1, v+1]))
 } 
 else {
 	for (j=1; j<=ng; j++) {
@@ -847,7 +855,7 @@ else {
 		lpdensity_normDgp(grid[j], 0, mean_hat, sd_hat) * (1 - lpdensity_normDgp(grid[j], 0, mean_hat, sd_hat)) /
 		lpdensity_normDgp(grid[j], 1, mean_hat, sd_hat) / (0.5 * n^2))
 	}
-	sd_dgp = sd_dgp :* sqrt(abs((invsym(S) * S2 * invsym(S))[v+1, v+1]))
+	sd_dgp = sd_dgp :* sqrt(abs((S_inv * S2 * S_inv)[v+1, v+1]))
 }
 
 // bandwidth
