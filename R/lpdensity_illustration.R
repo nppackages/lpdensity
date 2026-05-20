@@ -13,7 +13,13 @@ rm(list=ls())
 # install.packages("lpdensity")
 
 library("ggplot2")
-library("lpdensity")
+if (file.exists("R/lpdensity/DESCRIPTION") && requireNamespace("devtools", quietly = TRUE)) {
+  devtools::load_all("R/lpdensity", quiet = TRUE)
+} else if (file.exists("lpdensity/DESCRIPTION") && requireNamespace("devtools", quietly = TRUE)) {
+  devtools::load_all("lpdensity", quiet = TRUE)
+} else {
+  library("lpdensity")
+}
 
 #----------------------------------------
 # Generate data
@@ -30,7 +36,7 @@ colnames(data) <- c("v1")
 #----------------------------------------
 
 data$pdf <- dnorm(data$v1, mean = 1, sd = 1) / pnorm(0, mean = 1, sd = 1, lower.tail = FALSE)
-ggplot() + geom_histogram(data=data, aes(x=v1, y=..density..), breaks=seq(0, 4, 0.2), fill=2, col="white", alpha=0.6) +
+ggplot() + geom_histogram(data=data, aes(x=v1, y=after_stat(density)), breaks=seq(0, 4, 0.2), fill=2, col="white", alpha=0.6) +
   theme_bw() + labs(x = "") +
   geom_line(data=data, aes(x=v1, y=pdf))
 

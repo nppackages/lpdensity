@@ -655,7 +655,7 @@ plot.lpdensity <- function(..., alpha=NULL,
     ########################################
     # add lines to the plot
     if (type[i]%in%c("line", "both")) {
-      temp_plot <- temp_plot + geom_line(data=data_x, aes(x=grid, y=f_p, colour=Sname, linetype=Sname), size=lwd[i])
+      temp_plot <- temp_plot + geom_line(data=data_x, aes(x=grid, y=f_p, colour=Sname, linetype=Sname), linewidth=lwd[i])
     }
 
     ########################################

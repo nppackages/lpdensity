@@ -6,6 +6,19 @@
 *-------------------------------------------------------------------------------
 clear all  
 set more off
+
+local pwd "`c(pwd)'"
+local pwd : subinstr local pwd "\" "/", all
+capture confirm file "`pwd'/lpdensity.ado"
+if (!_rc) {
+	adopath ++ "`pwd'"
+}
+else {
+	capture confirm file "`pwd'/stata/lpdensity.ado"
+	if (!_rc) {
+		adopath ++ "`pwd'/stata"
+	}
+}
  
 *-------------------------------------------------------------------------------
 * Generate data
