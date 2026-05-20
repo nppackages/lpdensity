@@ -63,6 +63,18 @@ normal_dgps <- function(x, v, mean, sd) {
 }
 
 ################################################################################
+# Internal helper for local polynomial design matrices.
+lpbwdensityPolyMatrix <- function(x, powers) {
+  outer(as.numeric(x), powers, `^`)
+}
+
+lpbwdensityMomentCache <- new.env(parent=emptyenv())
+
+lpbwdensityCacheKey <- function(name, ...) {
+  paste(name, ..., sep="\r")
+}
+
+################################################################################
 #' Internal function.
 #'
 #' Generate matrix.
@@ -76,6 +88,11 @@ normal_dgps <- function(x, v, mean, sd) {
 #'
 #' @keywords internal
 Sgenerate <- function(p, low=-1, up=1, kernel="triangular") {
+  cacheKey <- lpbwdensityCacheKey("S", p, low, up, kernel)
+  if (exists(cacheKey, envir=lpbwdensityMomentCache, inherits=FALSE)) {
+    return(get(cacheKey, envir=lpbwdensityMomentCache, inherits=FALSE))
+  }
+
   S <- matrix(rep(0, (p+1)^2), ncol=(p+1))
   for (i in 1:(p+1)) {
     for (j in 1:(p+1)) {
@@ -89,6 +106,7 @@ Sgenerate <- function(p, low=-1, up=1, kernel="triangular") {
       S[i,j] <- (integrate(integrand, lower=low, upper=up)$value)
     }
   }
+  assign(cacheKey, S, envir=lpbwdensityMomentCache)
   return(S)
 }
 
@@ -106,6 +124,11 @@ Sgenerate <- function(p, low=-1, up=1, kernel="triangular") {
 #'
 #' @keywords internal
 Tgenerate <- function(p, low=-1, up=1, kernel="triangular") {
+  cacheKey <- lpbwdensityCacheKey("T", p, low, up, kernel)
+  if (exists(cacheKey, envir=lpbwdensityMomentCache, inherits=FALSE)) {
+    return(get(cacheKey, envir=lpbwdensityMomentCache, inherits=FALSE))
+  }
+
   S <- matrix(rep(0, (p+1)^2), ncol=(p+1))
   for (i in 1:(p+1)) {
     for (j in 1:(p+1)) {
@@ -119,6 +142,7 @@ Tgenerate <- function(p, low=-1, up=1, kernel="triangular") {
       S[i,j] <- (integrate(integrand, lower=low, upper=up)$value)
     }
   }
+  assign(cacheKey, S, envir=lpbwdensityMomentCache)
   return(S)
 }
 
@@ -137,6 +161,11 @@ Tgenerate <- function(p, low=-1, up=1, kernel="triangular") {
 #'
 #' @keywords internal
 Cgenerate <- function(k, p, low=-1, up=1, kernel="triangular") {
+  cacheKey <- lpbwdensityCacheKey("C", k, p, low, up, kernel)
+  if (exists(cacheKey, envir=lpbwdensityMomentCache, inherits=FALSE)) {
+    return(get(cacheKey, envir=lpbwdensityMomentCache, inherits=FALSE))
+  }
+
   C <- matrix(rep(0, (p+1)), ncol=1)
   for (i in 1:(p+1)) {
     if (kernel == "uniform") {
@@ -149,6 +178,7 @@ Cgenerate <- function(k, p, low=-1, up=1, kernel="triangular") {
     }
     C[i,1] <- (integrate(integrand, lower=low, upper=up)$value)
   }
+  assign(cacheKey, C, envir=lpbwdensityMomentCache)
   return(C)
 }
 
@@ -166,6 +196,11 @@ Cgenerate <- function(k, p, low=-1, up=1, kernel="triangular") {
 #'
 #' @keywords internal
 Ggenerate <- function(p, low=-1, up=1, kernel="triangular") {
+  cacheKey <- lpbwdensityCacheKey("G", p, low, up, kernel)
+  if (exists(cacheKey, envir=lpbwdensityMomentCache, inherits=FALSE)) {
+    return(get(cacheKey, envir=lpbwdensityMomentCache, inherits=FALSE))
+  }
+
   G <- matrix(rep(0, (p+1)^2), ncol=(p+1))
   for (i in 1:(p+1)) {
     for (j in 1:(p+1)) {
@@ -209,6 +244,7 @@ Ggenerate <- function(p, low=-1, up=1, kernel="triangular") {
       }
     }
   }
+  assign(cacheKey, G, envir=lpbwdensityMomentCache)
   return(G)
 }
 
@@ -290,8 +326,9 @@ bw_ROT  <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, st
   C2 <- Cgenerate(k=p+2, p=p, low=-1, up=1, kernel=kernel)
   G  <- Ggenerate(       p=p, low=-1, up=1, kernel=kernel)
   S2 <- Tgenerate(       p=p, low=-1, up=1, kernel=kernel)
-  bias_dgp[, 1] <- bias_dgp[, 1] * (solve(S) %*% C1)[v+1, ]
-  bias_dgp[, 2] <- bias_dgp[, 2] * (solve(S) %*% C2)[v+1, ]
+  Sinv <- solve(S)
+  bias_dgp[, 1] <- bias_dgp[, 1] * (Sinv %*% C1)[v+1, ]
+  bias_dgp[, 2] <- bias_dgp[, 2] * (Sinv %*% C2)[v+1, ]
 
   # variance estimate, sample size added
   sd_dgp <- matrix(NA, ncol=1, nrow=ng)
@@ -299,7 +336,7 @@ bw_ROT  <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, st
     for (j in 1:ng) {
       sd_dgp[j, 1] <- factorial(v) * sqrt(eval(temp_1, list(x=grid[j], mu=mean_hat, sd=sd_hat)) / n)
     }
-    sd_dgp <- sd_dgp * sqrt(abs((solve(S) %*% G %*% solve(S))[v+1, v+1]))
+    sd_dgp <- sd_dgp * sqrt(abs((Sinv %*% G %*% Sinv)[v+1, v+1]))
   } else {
     for (j in 1:ng) {
       # this comes from a higher-order variance expansion. See Lemma 4 in the Appendix of Cattaneo, Jansson and Ma (2022a)
@@ -307,7 +344,7 @@ bw_ROT  <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, st
         pnorm(grid[j], mean=mean_hat, sd=sd_hat) * pnorm(grid[j], mean=mean_hat, sd=sd_hat, lower.tail=FALSE) /
           dnorm(grid[j], mean=mean_hat, sd=sd_hat) / (0.5*n^2))
     }
-    sd_dgp <- sd_dgp * sqrt(abs((solve(S) %*% S2 %*% solve(S))[v+1, v+1]))
+    sd_dgp <- sd_dgp * sqrt(abs((Sinv %*% S2 %*% Sinv)[v+1, v+1]))
   }
 
   # bandwidth
@@ -418,8 +455,9 @@ bw_IROT <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, st
   C2 <- Cgenerate(k=p+2, p=p, low=-1, up=1, kernel=kernel)
   S2 <- Tgenerate(       p=p, low=-1, up=1, kernel=kernel)
   G  <- Ggenerate(       p=p, low=-1, up=1, kernel=kernel)
-  bias_dgp[, 1] <- bias_dgp[, 1] * (solve(S) %*% C1)[v+1, ]
-  bias_dgp[, 2] <- bias_dgp[, 2] * (solve(S) %*% C2)[v+1, ]
+  Sinv <- solve(S)
+  bias_dgp[, 1] <- bias_dgp[, 1] * (Sinv %*% C1)[v+1, ]
+  bias_dgp[, 2] <- bias_dgp[, 2] * (Sinv %*% C2)[v+1, ]
 
   # variance estimate, sample size added
   sd_dgp <- matrix(NA, ncol=1, nrow=ng)
@@ -427,7 +465,7 @@ bw_IROT <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, st
     for (j in 1:ng) {
       sd_dgp[j, 1] <- factorial(v) * sqrt(eval(temp_1, list(x=grid[j], mu=mean_hat, sd=sd_hat)) / n)
     }
-    sd_dgp <- sd_dgp * sqrt(abs((solve(S) %*% G %*% solve(S))[v+1, v+1]))
+    sd_dgp <- sd_dgp * sqrt(abs((Sinv %*% G %*% Sinv)[v+1, v+1]))
   } else {
     for (j in 1:ng) {
       # this comes from a higher-order variance expansion. See Lemma 4 in the Appendix of Cattaneo, Jansson and Ma (2022a)
@@ -435,7 +473,7 @@ bw_IROT <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, st
         pnorm(grid[j], mean=mean_hat, sd=sd_hat) * pnorm(grid[j], mean=mean_hat, sd=sd_hat, lower.tail=FALSE) /
           dnorm(grid[j], mean=mean_hat, sd=sd_hat) / (0.5*n^2))
     }
-    sd_dgp <- sd_dgp * sqrt(abs((solve(S) %*% S2 %*% solve(S))[v+1, v+1]))
+    sd_dgp <- sd_dgp * sqrt(abs((Sinv %*% S2 %*% Sinv)[v+1, v+1]))
   }
 
   # bandwidth
@@ -556,7 +594,7 @@ bw_MSE  <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, st
     # estimate F_p+2
     index_temp <- abs(data-grid[j]) <= hp2
     Xh_temp <- matrix(data[index_temp] - grid[j], ncol=1) / hp2
-    Xh_p_temp <- t(apply(Xh_temp, MARGIN=1, FUN=function(x) x^(0:(p+3))))
+    Xh_p_temp <- lpbwdensityPolyMatrix(Xh_temp, 0:(p+3))
     if (kernel == "triangular") {
       Kh_temp <- (1 - abs(Xh_temp)) / hp2
     } else if (kernel == "uniform") {
@@ -577,7 +615,7 @@ bw_MSE  <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, st
     # estimate F_p+1
     index_temp <- abs(data-grid[j]) <= hp1
     Xh_temp <- matrix(data[index_temp] - grid[j], ncol=1) / hp1
-    Xh_p_temp <- t(apply(Xh_temp, MARGIN=1, FUN=function(x) x^(0:(p+2))))
+    Xh_p_temp <- lpbwdensityPolyMatrix(Xh_temp, 0:(p+2))
     if (kernel == "triangular") {
       Kh_temp <- (1 - abs(Xh_temp)) / hp1
     } else if (kernel == "uniform") {
@@ -608,40 +646,17 @@ bw_MSE  <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, st
     #Kh_temp   <- Pweights[index_temp] * Kh_temp
 
     # estimate Cp matrix
-    if (p > 0) {
-      C_p_hat <- matrix(apply(
-        sweep(
-          apply(Xh_temp, MARGIN=1, FUN=function(x) x^((p+1):(2*p+1))),
-          MARGIN=2, FUN="*", STATS=Pweights[index_temp] * Kh_temp),
-        MARGIN=1, FUN=sum) / n, ncol=1)
-    } else {
-      C_p_hat <- matrix(apply(
-        sweep(
-          matrix(apply(Xh_temp, MARGIN=1, FUN=function(x) x^((p+1):(2*p+1))), nrow=1),
-          MARGIN=2, FUN="*", STATS=Pweights[index_temp] * Kh_temp),
-        MARGIN=1, FUN=sum) / n, ncol=1)
-    }
+    C_p_powers <- (p+1):(2*p+1)
+    C_p_hat <- matrix(colSums(lpbwdensityPolyMatrix(Xh_temp, C_p_powers) *
+                                as.numeric(Pweights[index_temp] * Kh_temp)) / n, ncol=1)
 
     # estimate Cp+1 matrix
-    if (p > 0) {
-      C_p1_hat <- matrix(apply(
-        sweep(
-          apply(Xh_temp, MARGIN=1, FUN=function(x) x^((p+2):(2*p+2))),
-          MARGIN=2, FUN="*", STATS=Pweights[index_temp] * Kh_temp),
-        MARGIN=1, FUN=sum) / n, ncol=1)
-    } else {
-      C_p1_hat <- matrix(apply(
-        sweep(
-          matrix(apply(Xh_temp, MARGIN=1, FUN=function(x) x^((p+2):(2*p+2))), nrow=1),
-          MARGIN=2, FUN="*", STATS=Pweights[index_temp] * Kh_temp),
-        MARGIN=1, FUN=sum) / n, ncol=1)
-    }
+    C_p1_powers <- (p+2):(2*p+2)
+    C_p1_hat <- matrix(colSums(lpbwdensityPolyMatrix(Xh_temp, C_p1_powers) *
+                                 as.numeric(Pweights[index_temp] * Kh_temp)) / n, ncol=1)
 
     # estimate S matirx
-    Xh_p_temp <- t(apply(Xh_temp, MARGIN=1, FUN=function(x) x^(0:p)))
-    if (p == 0) {
-      Xh_p_temp <- matrix(Xh_p_temp, ncol=1)
-    }
+    Xh_p_temp <- lpbwdensityPolyMatrix(Xh_temp, 0:p)
 
     S_hat <- t(Xh_p_temp) %*% sweep(Xh_p_temp, MARGIN=1, FUN="*", STATS=Pweights[index_temp] * Kh_temp) / n
     S_hat_inv <- try(solve(S_hat), silent=TRUE)
@@ -655,10 +670,7 @@ bw_MSE  <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, st
       if (massPoints) {
         Y_temp    <- matrix(Fn[indexUnique], ncol=1)
         Xh_temp   <- matrix((dataUnique - grid[j]), ncol=1) / h1
-        Xh_p_temp <- t(apply(Xh_temp, MARGIN=1, FUN=function(x) x^(0:p)))
-        if (p == 0) {
-          Xh_p_temp <- matrix(Xh_p_temp, ncol=1)
-        }
+        Xh_p_temp <- lpbwdensityPolyMatrix(Xh_temp, 0:p)
 
         if (kernel == "triangular") {
           Kh_temp <- ((1 - abs(Xh_temp)) / h1) * index_temp[indexUnique]
@@ -681,10 +693,7 @@ bw_MSE  <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, st
       } else {
         Y_temp    <- matrix(Fn, ncol=1)
         Xh_temp   <- matrix((data - grid[j]), ncol=1) / h1
-        Xh_p_temp <- t(apply(Xh_temp, MARGIN=1, FUN=function(x) x^(0:p)))
-        if (p == 0) {
-          Xh_p_temp <- matrix(Xh_p_temp, ncol=1)
-        }
+        Xh_p_temp <- lpbwdensityPolyMatrix(Xh_temp, 0:p)
 
         if (kernel == "triangular") {
           Kh_temp <- ((1 - abs(Xh_temp)) / h1) * index_temp
@@ -836,7 +845,7 @@ bw_IMSE  <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, s
     # estimate F_p+2
     index_temp <- abs(data-grid[j]) <= hp2
     Xh_temp <- matrix(data[index_temp] - grid[j], ncol=1) / hp2
-    Xh_p_temp <- t(apply(Xh_temp, MARGIN=1, FUN=function(x) x^(0:(p+3))))
+    Xh_p_temp <- lpbwdensityPolyMatrix(Xh_temp, 0:(p+3))
     if (kernel == "triangular") {
       Kh_temp <- (1 - abs(Xh_temp)) / hp2
     } else if (kernel == "uniform") {
@@ -857,7 +866,7 @@ bw_IMSE  <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, s
     # estimate F_p+1
     index_temp <- abs(data-grid[j]) <= hp1
     Xh_temp <- matrix(data[index_temp] - grid[j], ncol=1) / hp1
-    Xh_p_temp <- t(apply(Xh_temp, MARGIN=1, FUN=function(x) x^(0:(p+2))))
+    Xh_p_temp <- lpbwdensityPolyMatrix(Xh_temp, 0:(p+2))
     if (kernel == "triangular") {
       Kh_temp <- (1 - abs(Xh_temp)) / hp1
     } else if (kernel == "uniform") {
@@ -888,40 +897,17 @@ bw_IMSE  <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, s
     #Kh_temp   <- Pweights[index_temp] * Kh_temp
 
     # estimate Cp matrix
-    if (p > 0) {
-      C_p_hat <- matrix(apply(
-        sweep(
-          apply(Xh_temp, MARGIN=1, FUN=function(x) x^((p+1):(2*p+1))),
-          MARGIN=2, FUN="*", STATS=Pweights[index_temp] * Kh_temp),
-        MARGIN=1, FUN=sum) / n, ncol=1)
-    } else {
-      C_p_hat <- matrix(apply(
-        sweep(
-          matrix(apply(Xh_temp, MARGIN=1, FUN=function(x) x^((p+1):(2*p+1))), nrow=1),
-          MARGIN=2, FUN="*", STATS=Pweights[index_temp] * Kh_temp),
-        MARGIN=1, FUN=sum) / n, ncol=1)
-    }
+    C_p_powers <- (p+1):(2*p+1)
+    C_p_hat <- matrix(colSums(lpbwdensityPolyMatrix(Xh_temp, C_p_powers) *
+                                as.numeric(Pweights[index_temp] * Kh_temp)) / n, ncol=1)
 
     # estimate Cp+1 matrix
-    if (p > 0) {
-      C_p1_hat <- matrix(apply(
-        sweep(
-          apply(Xh_temp, MARGIN=1, FUN=function(x) x^((p+2):(2*p+2))),
-          MARGIN=2, FUN="*", STATS=Pweights[index_temp] * Kh_temp),
-        MARGIN=1, FUN=sum) / n, ncol=1)
-    } else {
-      C_p1_hat <- matrix(apply(
-        sweep(
-          matrix(apply(Xh_temp, MARGIN=1, FUN=function(x) x^((p+2):(2*p+2))), nrow=1),
-          MARGIN=2, FUN="*", STATS=Pweights[index_temp] * Kh_temp),
-        MARGIN=1, FUN=sum) / n, ncol=1)
-    }
+    C_p1_powers <- (p+2):(2*p+2)
+    C_p1_hat <- matrix(colSums(lpbwdensityPolyMatrix(Xh_temp, C_p1_powers) *
+                                 as.numeric(Pweights[index_temp] * Kh_temp)) / n, ncol=1)
 
     # estimate S matirx
-    Xh_p_temp <- t(apply(Xh_temp, MARGIN=1, FUN=function(x) x^(0:p)))
-    if (p == 0) {
-      Xh_p_temp <- matrix(Xh_p_temp, ncol=1)
-    }
+    Xh_p_temp <- lpbwdensityPolyMatrix(Xh_temp, 0:p)
 
     S_hat <- t(Xh_p_temp) %*% sweep(Xh_p_temp, MARGIN=1, FUN="*", STATS=Pweights[index_temp] * Kh_temp) / n
     S_hat_inv <- try(solve(S_hat), silent=TRUE)
@@ -935,10 +921,7 @@ bw_IMSE  <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, s
       if (massPoints) {
         Y_temp    <- matrix(Fn[indexUnique], ncol=1)
         Xh_temp   <- matrix((data[indexUnique] - grid[j]), ncol=1) / h1
-        Xh_p_temp <- t(apply(Xh_temp, MARGIN=1, FUN=function(x) x^(0:p)))
-        if (p == 0) {
-          Xh_p_temp <- matrix(Xh_p_temp, ncol=1)
-        }
+        Xh_p_temp <- lpbwdensityPolyMatrix(Xh_temp, 0:p)
 
         if (kernel == "triangular") {
           Kh_temp <- ((1 - abs(Xh_temp)) / h1) * index_temp[indexUnique]
@@ -961,10 +944,7 @@ bw_IMSE  <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, s
       } else {
         Y_temp    <- matrix(Fn, ncol=1)
         Xh_temp   <- matrix((data - grid[j]), ncol=1) / h1
-        Xh_p_temp <- t(apply(Xh_temp, MARGIN=1, FUN=function(x) x^(0:p)))
-        if (p == 0) {
-          Xh_p_temp <- matrix(Xh_p_temp, ncol=1)
-        }
+        Xh_p_temp <- lpbwdensityPolyMatrix(Xh_temp, 0:p)
 
         if (kernel == "triangular") {
           Kh_temp <- ((1 - abs(Xh_temp)) / h1) * index_temp
@@ -1036,6 +1016,3 @@ bw_IMSE  <- function(data, grid, p, v, kernel, Cweights, Pweights, massPoints, s
 
   return(h)
 }
-
-
-
