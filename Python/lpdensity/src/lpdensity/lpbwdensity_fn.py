@@ -6,6 +6,7 @@ import warnings
 
 warnings.simplefilter(action="ignore", category=FutureWarning)
 
+from functools import lru_cache
 import numpy as np
 from scipy.stats import norm
 import sympy
@@ -20,6 +21,12 @@ import pandas as pd
 
 def _as_scalar_bandwidth(value):
     return float(np.asarray(value, dtype=float).reshape(-1)[0])
+
+
+def _poly_frame(values, powers):
+    values = np.asarray(values, dtype=float).reshape(-1, 1)
+    powers = np.asarray(list(powers), dtype=int).reshape(1, -1)
+    return pd.DataFrame(np.power(values, powers), columns=np.repeat(0, powers.size))
 
 
 def __kernel_fn(a, h, kernel):
@@ -72,6 +79,11 @@ def __normal_dgps(x_val, v, mean, sd):
 # Generate S matrix
 # Output matches R
 def __Sgenerate(p, low=-1, up=1, kernel="triangular"):
+    return _Sgenerate_cached(p, float(low), float(up), kernel).copy()
+
+
+@lru_cache(maxsize=None)
+def _Sgenerate_cached(p, low, up, kernel):
     S = np.zeros((p + 1, p + 1))
     for i in range(1, p + 2):
         for j in range(1, p + 2):
@@ -90,6 +102,11 @@ def __Sgenerate(p, low=-1, up=1, kernel="triangular"):
 # Generate T matrix
 # Output matches R
 def __Tgenerate(p, low=-1, up=1, kernel="triangular"):
+    return _Tgenerate_cached(p, float(low), float(up), kernel).copy()
+
+
+@lru_cache(maxsize=None)
+def _Tgenerate_cached(p, low, up, kernel):
     S = np.zeros((p + 1, p + 1))
     for i in range(1, p + 2):
         for j in range(1, p + 2):
@@ -110,6 +127,11 @@ def __Tgenerate(p, low=-1, up=1, kernel="triangular"):
 # Generate C matrix
 # Output matches R
 def __Cgenerate(k, p, low=-1, up=1, kernel="triangular"):
+    return _Cgenerate_cached(k, p, float(low), float(up), kernel).copy()
+
+
+@lru_cache(maxsize=None)
+def _Cgenerate_cached(k, p, low, up, kernel):
     C = np.zeros((p + 1, 1))
     for i in range(1, p + 2):
         if kernel == "uniform":
@@ -127,6 +149,11 @@ def __Cgenerate(k, p, low=-1, up=1, kernel="triangular"):
 # Generate G matrix
 # TODO: Fix triangular kernel
 def __Ggenerate(p, low=-1, up=1, kernel="uniform"):
+    return _Ggenerate_cached(p, float(low), float(up), kernel).copy()
+
+
+@lru_cache(maxsize=None)
+def _Ggenerate_cached(p, low, up, kernel):
     G = np.zeros((p + 1, p + 1))
     for i in range(1, p + 2):
         for j in range(1, p + 2):
@@ -552,8 +579,7 @@ def __bw_MSE(
         # estimate F_p+2
         index_temp = abs(data - grid[j]) <= hp2
         Xh_temp = pd.DataFrame(data[index_temp] - grid[j]) / hp2
-        Xh_p_temp = Xh_temp[np.repeat(Xh_temp.columns, p + 3 + 1)]
-        Xh_p_temp = Xh_p_temp.apply(lambda x: np.power(x, range(p + 3 + 1)), axis=1)
+        Xh_p_temp = _poly_frame(Xh_temp, range(p + 3 + 1))
 
         # kernel function calculations
         Kh_temp = pd.DataFrame(__kernel_fn(Xh_temp, hp2, kernel))
@@ -582,8 +608,7 @@ def __bw_MSE(
         # estimate F_p+1
         index_temp = abs(data - grid[j]) <= hp1
         Xh_temp = pd.DataFrame(data[index_temp] - grid[j]) / hp1
-        Xh_p_temp = Xh_temp[np.repeat(Xh_temp.columns, p + 2 + 1)]
-        Xh_p_temp = Xh_p_temp.apply(lambda x: np.power(x, range(p + 2 + 1)), axis=1)
+        Xh_p_temp = _poly_frame(Xh_temp, range(p + 2 + 1))
 
         # kernel function calculations
         Kh_temp = pd.DataFrame(__kernel_fn(Xh_temp, hp1, kernel))
@@ -618,15 +643,14 @@ def __bw_MSE(
         # Cp matrix
         if p > 0:
             C_p_hat = pd.DataFrame(
-                Xh_temp[np.repeat(Xh_temp.columns, p + 1)]
-                .apply(lambda x: np.power(x, range(p + 1, 2 * p + 1 + 1)), axis=1)
+                _poly_frame(Xh_temp, range(p + 1, 2 * p + 1 + 1))
                 .mul(Kh_temp.mul(Pweights[index_temp], axis=0), axis=0)
                 .sum(axis=0)
                 / n
             )
         else:
             C_p_hat = pd.DataFrame(
-                Xh_temp.apply(lambda x: np.power(x, 1), axis=1)
+                _poly_frame(Xh_temp, [1])
                 .mul(Kh_temp.mul(Pweights[index_temp], axis=0), axis=0)
                 .sum(axis=0)
                 / n
@@ -635,26 +659,21 @@ def __bw_MSE(
         # Cp+1 matrix
         if p > 0:
             C_p1_hat = pd.DataFrame(
-                Xh_temp[np.repeat(Xh_temp.columns, p + 1)]
-                .apply(lambda x: np.power(x, range(p + 2, 2 * p + 2 + 1)), axis=1)
+                _poly_frame(Xh_temp, range(p + 2, 2 * p + 2 + 1))
                 .mul(Kh_temp.mul(Pweights[index_temp], axis=0), axis=0)
                 .sum(axis=0)
                 / n
             )
         else:
             C_p1_hat = pd.DataFrame(
-                Xh_temp.apply(lambda x: np.power(x, 2), axis=1)
+                _poly_frame(Xh_temp, [2])
                 .mul(Kh_temp.mul(Pweights[index_temp], axis=0), axis=0)
                 .sum(axis=0)
                 / n
             )
 
         # S matrix
-        Xh_p_temp = pd.DataFrame(
-            Xh_temp[np.repeat(Xh_temp.columns, p + 1)].apply(
-                lambda x: np.power(x, range(p + 1)), axis=1
-            )
-        )
+        Xh_p_temp = _poly_frame(Xh_temp, range(p + 1))
 
         S_hat = (
             np.matmul(
@@ -679,8 +698,7 @@ def __bw_MSE(
             if massPoints == True:
                 Y_temp = pd.DataFrame(Fn[indexUnique])
                 Xh_temp = pd.DataFrame(dataUnique - grid[j]) / h1
-                Xh_p_temp = Xh_temp[np.repeat(Xh_temp.columns, p + 1)]
-                Xh_p_temp = Xh_p_temp.apply(lambda x: np.power(x, range(p + 1)), axis=1)
+                Xh_p_temp = _poly_frame(Xh_temp, range(p + 1))
                 if kernel == "triangular":
                     Kh_temp = (1 - abs(Xh_temp)) / h1
                     Kh_temp = Kh_temp.mul(index_temp[indexUnique], axis=0)
@@ -713,8 +731,7 @@ def __bw_MSE(
             else:
                 Y_temp = pd.DataFrame(Fn)
                 Xh_temp = pd.DataFrame(data - grid[j]) / h1
-                Xh_p_temp = Xh_temp[np.repeat(Xh_temp.columns, p + 1)]
-                Xh_p_temp = Xh_p_temp.apply(lambda x: np.power(x, range(p + 1)), axis=1)
+                Xh_p_temp = _poly_frame(Xh_temp, range(p + 1))
                 Kh_temp = __kernel_fn(Xh_temp, h1, kernel)
 
                 Xh_p_Kh_temp = Xh_p_temp.mul(Kh_temp, axis=0)
@@ -925,8 +942,7 @@ def __bw_IMSE(
         # estimate F_p+2
         index_temp = abs(data - grid[j]) <= hp2
         Xh_temp = pd.DataFrame(data[index_temp] - grid[j]) / hp2
-        Xh_p_temp = Xh_temp[np.repeat(Xh_temp.columns, p + 3 + 1)]
-        Xh_p_temp = Xh_p_temp.apply(lambda x: np.power(x, range(p + 3 + 1)), axis=1)
+        Xh_p_temp = _poly_frame(Xh_temp, range(p + 3 + 1))
 
         # kernel function calculations
         Kh_temp = pd.DataFrame(__kernel_fn(Xh_temp, hp2, kernel))
@@ -955,8 +971,7 @@ def __bw_IMSE(
         # estimate F_p+1
         index_temp = abs(data - grid[j]) <= hp1
         Xh_temp = pd.DataFrame(data[index_temp] - grid[j]) / hp1
-        Xh_p_temp = Xh_temp[np.repeat(Xh_temp.columns, p + 2 + 1)]
-        Xh_p_temp = Xh_p_temp.apply(lambda x: np.power(x, range(p + 2 + 1)), axis=1)
+        Xh_p_temp = _poly_frame(Xh_temp, range(p + 2 + 1))
 
         # kernel function calculations
         Kh_temp = pd.DataFrame(__kernel_fn(Xh_temp, hp1, kernel))
@@ -991,15 +1006,14 @@ def __bw_IMSE(
         # Cp matrix
         if p > 0:
             C_p_hat = pd.DataFrame(
-                Xh_temp[np.repeat(Xh_temp.columns, p + 1)]
-                .apply(lambda x: np.power(x, range(p + 1, 2 * p + 1 + 1)), axis=1)
+                _poly_frame(Xh_temp, range(p + 1, 2 * p + 1 + 1))
                 .mul(Kh_temp.mul(Pweights[index_temp], axis=0), axis=0)
                 .sum(axis=0)
                 / n
             )
         else:
             C_p_hat = pd.DataFrame(
-                Xh_temp.apply(lambda x: np.power(x, 1), axis=1)
+                _poly_frame(Xh_temp, [1])
                 .mul(Kh_temp.mul(Pweights[index_temp], axis=0), axis=0)
                 .sum(axis=0)
                 / n
@@ -1008,26 +1022,21 @@ def __bw_IMSE(
         # Cp+1 matrix
         if p > 0:
             C_p1_hat = pd.DataFrame(
-                Xh_temp[np.repeat(Xh_temp.columns, p + 1)]
-                .apply(lambda x: np.power(x, range(p + 2, 2 * p + 2 + 1)), axis=1)
+                _poly_frame(Xh_temp, range(p + 2, 2 * p + 2 + 1))
                 .mul(Kh_temp.mul(Pweights[index_temp], axis=0), axis=0)
                 .sum(axis=0)
                 / n
             )
         else:
             C_p1_hat = pd.DataFrame(
-                Xh_temp.apply(lambda x: np.power(x, 2), axis=1)
+                _poly_frame(Xh_temp, [2])
                 .mul(Kh_temp.mul(Pweights[index_temp], axis=0), axis=0)
                 .sum(axis=0)
                 / n
             )
 
         # S matrix
-        Xh_p_temp = pd.DataFrame(
-            Xh_temp[np.repeat(Xh_temp.columns, p + 1)].apply(
-                lambda x: np.power(x, range(p + 1)), axis=1
-            )
-        )
+        Xh_p_temp = _poly_frame(Xh_temp, range(p + 1))
 
         S_hat = (
             np.matmul(
@@ -1052,8 +1061,7 @@ def __bw_IMSE(
             if massPoints == True:
                 Y_temp = pd.DataFrame(Fn[indexUnique])
                 Xh_temp = pd.DataFrame(dataUnique - grid[j]) / h1
-                Xh_p_temp = Xh_temp[np.repeat(Xh_temp.columns, p + 1)]
-                Xh_p_temp = Xh_p_temp.apply(lambda x: np.power(x, range(p + 1)), axis=1)
+                Xh_p_temp = _poly_frame(Xh_temp, range(p + 1))
 
                 if kernel == "triangular":
                     Kh_temp = (1 - abs(Xh_temp)) / h1
@@ -1090,8 +1098,7 @@ def __bw_IMSE(
             else:
                 Y_temp = pd.DataFrame(Fn)
                 Xh_temp = pd.DataFrame(data - grid[j]) / h1
-                Xh_p_temp = Xh_temp[np.repeat(Xh_temp.columns, p + 1)]
-                Xh_p_temp = Xh_p_temp.apply(lambda x: np.power(x, range(p + 1)), axis=1)
+                Xh_p_temp = _poly_frame(Xh_temp, range(p + 1))
                 Kh_temp = __kernel_fn(Xh_temp, h1, kernel)
 
                 Xh_p_Kh_temp = Xh_p_temp.mul(Kh_temp, axis=0)
