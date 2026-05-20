@@ -984,8 +984,12 @@ for (j=1; j<=ng; j++) {
 
 	// estimate F_p+2
 	index_temp = (abs(data :- grid[j]) :<= hp2)
-	Xh_temp = (select(data, index_temp) :- grid[j]) :/ hp2 
-	Xh_p_temp = J(sum(index_temp), p+4, 1)	
+	data_temp = select(data, index_temp)
+	Pweights_temp = select(Pweights, index_temp)
+	Y_temp = select(Fn, index_temp)
+	n_temp = length(data_temp)
+	Xh_temp = (data_temp :- grid[j]) :/ hp2
+	Xh_p_temp = J(n_temp, p+4, 1)
 	Xh_p_temp[., 2] = Xh_temp
 
 	for (jj=3; jj<=p+4; jj++) { 
@@ -996,14 +1000,17 @@ for (j=1; j<=ng; j++) {
 	if (kernel == "uniform") 		Kh_temp = 0.5 / hp2
 	if (kernel == "epanechnikov") 	Kh_temp = (1 :- (Xh_temp):^2) :* 0.75 :/ hp2
 	
-	Kh_temp = select(Pweights, index_temp) :* Kh_temp
-	Y_temp = select(Fn, index_temp)
+	Kh_temp = Pweights_temp :* Kh_temp
 	dgp_hat[j, 2] = (invsym(cross(Xh_p_temp, Kh_temp, Xh_p_temp)) * cross(Xh_p_temp, Kh_temp, Y_temp))[p+3, 1]  / (hp2^(p+2))
 
 	// estimate F_p+1
     index_temp = (abs(data :- grid[j]) :<= hp1)
-	Xh_temp = (select(data, index_temp) :- grid[j]) :/ hp1 
-	Xh_p_temp = J(sum(index_temp), p+3, 1)
+	data_temp = select(data, index_temp)
+	Pweights_temp = select(Pweights, index_temp)
+	Y_temp = select(Fn, index_temp)
+	n_temp = length(data_temp)
+	Xh_temp = (data_temp :- grid[j]) :/ hp1
+	Xh_p_temp = J(n_temp, p+3, 1)
 	Xh_p_temp[., 2] = Xh_temp
 	
 	for (jj=3; jj<=p+3; jj++) { 
@@ -1014,35 +1021,36 @@ for (j=1; j<=ng; j++) {
 	if (kernel == "uniform") 		Kh_temp = 0.5 / hp1
 	if (kernel == "epanechnikov") 	Kh_temp = (1 :- (Xh_temp):^2) :* 0.75 :/ hp1
 	
-	Kh_temp = select(Pweights, index_temp) :* Kh_temp
-	Y_temp = select(Fn, index_temp)
+	Kh_temp = Pweights_temp :* Kh_temp
 	dgp_hat[j, 1] = (invsym(cross(Xh_p_temp, Kh_temp, Xh_p_temp)) * cross(Xh_p_temp, Kh_temp, Y_temp))[p+2, 1] / (hp1^(p+1))
 
 	// prepare for estimating matrices
     index_temp = (abs(data :- grid[j]) :<= h1)
-    Xh_temp = (select(data, index_temp) :- grid[j]) :/ h1 
+	data_temp = select(data, index_temp)
+	Pweights_temp = select(Pweights, index_temp)
+	n_temp = length(data_temp)
+    Xh_temp = (data_temp :- grid[j]) :/ h1
 	
 	if (kernel == "triangular")  	Kh_temp = (1 :- abs(Xh_temp)) :/ h1
 	if (kernel == "uniform") 		Kh_temp = 0.5 / h1
 	if (kernel == "epanechnikov") 	Kh_temp = 0.75 :* (1 :- Xh_temp:^2) :/ h1
-	Pweights_temp = select(Pweights, index_temp)
 
     // estimate Cp matrix
-	Xh_p_temp = J(sum(index_temp), (2*p+1) - (p+1) + 1, 1)
+	Xh_p_temp = J(n_temp, (2*p+1) - (p+1) + 1, 1)
 	for (jj=1; jj<=(2*p+1)-(p+1)+1; jj++) {
 		Xh_p_temp[., jj] = Xh_temp:^(p+jj)
 	}
 	C_p_hat = cross(Xh_p_temp, Kh_temp, Pweights_temp) :/ n
 
 	// estimate Cp+1 matrix
-	Xh_p_temp = J(sum(index_temp), (2*p+2) - (p+2) + 1, 1)
+	Xh_p_temp = J(n_temp, (2*p+2) - (p+2) + 1, 1)
 	for (jj=1; jj<=(2*p+2)-(p+2)+1; jj++) {
 		Xh_p_temp[., jj] = Xh_temp:^(p+jj+1)
 	}
 	C_p1_hat = cross(Xh_p_temp, Kh_temp, Pweights_temp) :/ n
 	
 	// estimate S matirx
- 	Xh_p_temp = J(sum(index_temp), p - 0 + 1, 1)
+	Xh_p_temp = J(n_temp, p - 0 + 1, 1)
 	for (jj=1; jj<=p-0+1; jj++) {
 		Xh_p_temp[., jj] = Xh_temp:^(jj-1)
 	}
@@ -1245,8 +1253,12 @@ for (j=1; j<=ng; j++) {
 
 	// estimate F_p+2
 	index_temp = (abs(data :- grid[j]) :<= hp2)
-	Xh_temp = (select(data, index_temp) :- grid[j]) :/ hp2 
-	Xh_p_temp = J(sum(index_temp), p+4, 1)	
+	data_temp = select(data, index_temp)
+	Pweights_temp = select(Pweights, index_temp)
+	Y_temp = select(Fn, index_temp)
+	n_temp = length(data_temp)
+	Xh_temp = (data_temp :- grid[j]) :/ hp2
+	Xh_p_temp = J(n_temp, p+4, 1)
 	Xh_p_temp[., 2] = Xh_temp
 
 	for (jj=3; jj<=p+4; jj++) { 
@@ -1257,14 +1269,17 @@ for (j=1; j<=ng; j++) {
 	if (kernel == "uniform") 		Kh_temp = 0.5 / hp2
 	if (kernel == "epanechnikov") 	Kh_temp = (1 :- (Xh_temp):^2) :* 0.75 :/ hp2
 	
-	Kh_temp = select(Pweights, index_temp) :* Kh_temp
-	Y_temp = select(Fn, index_temp)
+	Kh_temp = Pweights_temp :* Kh_temp
 	dgp_hat[j, 2] = (invsym(cross(Xh_p_temp, Kh_temp, Xh_p_temp)) * cross(Xh_p_temp, Kh_temp, Y_temp))[p+3, 1]  / (hp2^(p+2))
 
 	// estimate F_p+1
     index_temp = (abs(data :- grid[j]) :<= hp1)
-	Xh_temp = (select(data, index_temp) :- grid[j]) :/ hp1 
-	Xh_p_temp = J(sum(index_temp), p+3, 1)
+	data_temp = select(data, index_temp)
+	Pweights_temp = select(Pweights, index_temp)
+	Y_temp = select(Fn, index_temp)
+	n_temp = length(data_temp)
+	Xh_temp = (data_temp :- grid[j]) :/ hp1
+	Xh_p_temp = J(n_temp, p+3, 1)
 	Xh_p_temp[., 2] = Xh_temp
 	
 	for (jj=3; jj<=p+3; jj++) { 
@@ -1275,35 +1290,36 @@ for (j=1; j<=ng; j++) {
 	if (kernel == "uniform") 		Kh_temp = 0.5 / hp1
 	if (kernel == "epanechnikov") 	Kh_temp = (1 :- (Xh_temp):^2) :* 0.75 :/ hp1
 	
-	Kh_temp = select(Pweights, index_temp) :* Kh_temp
-	Y_temp = select(Fn, index_temp)
+	Kh_temp = Pweights_temp :* Kh_temp
 	dgp_hat[j, 1] = (invsym(cross(Xh_p_temp, Kh_temp, Xh_p_temp)) * cross(Xh_p_temp, Kh_temp, Y_temp))[p+2, 1] / (hp1^(p+1))
 
 	// prepare for estimating matrices
     index_temp = (abs(data :- grid[j]) :<= h1)
-    Xh_temp = (select(data, index_temp) :- grid[j]) :/ h1 
+	data_temp = select(data, index_temp)
+	Pweights_temp = select(Pweights, index_temp)
+	n_temp = length(data_temp)
+    Xh_temp = (data_temp :- grid[j]) :/ h1
 	
 	if (kernel == "triangular")  	Kh_temp = (1 :- abs(Xh_temp)) :/ h1
 	if (kernel == "uniform") 		Kh_temp = 0.5 / h1
 	if (kernel == "epanechnikov") 	Kh_temp = 0.75 :* (1 :- Xh_temp:^2) :/ h1
-	Pweights_temp = select(Pweights, index_temp)
 
     // estimate Cp matrix
-	Xh_p_temp = J(sum(index_temp), (2*p+1) - (p+1) + 1, 1)
+	Xh_p_temp = J(n_temp, (2*p+1) - (p+1) + 1, 1)
 	for (jj=1; jj<=(2*p+1)-(p+1)+1; jj++) {
 		Xh_p_temp[., jj] = Xh_temp:^(p+jj)
 	}
 	C_p_hat = cross(Xh_p_temp, Kh_temp, Pweights_temp) :/ n
 
 	// estimate Cp+1 matrix
-	Xh_p_temp = J(sum(index_temp), (2*p+2) - (p+2) + 1, 1)
+	Xh_p_temp = J(n_temp, (2*p+2) - (p+2) + 1, 1)
 	for (jj=1; jj<=(2*p+2)-(p+2)+1; jj++) {
 		Xh_p_temp[., jj] = Xh_temp:^(p+jj+1)
 	}
 	C_p1_hat = cross(Xh_p_temp, Kh_temp, Pweights_temp) :/ n
 	
 	// estimate S matirx
- 	Xh_p_temp = J(sum(index_temp), p - 0 + 1, 1)
+	Xh_p_temp = J(n_temp, p - 0 + 1, 1)
 	for (jj=1; jj<=p-0+1; jj++) {
 		Xh_p_temp[., jj] = Xh_temp:^(jj-1)
 	}

@@ -57,11 +57,22 @@ test_that("broad lpdensity cases match numerical baselines", {
 
 test_that("broad lpbwdensity cases match numerical baselines", {
   data <- baseline_data()
+  weights <- baseline_weights()
   expected <- read.csv(test_path("fixtures", "lpbwdensity-baseline-broad.csv"), check.names = FALSE)
 
   for (selector in c("mse-dpi", "imse-dpi", "mse-rot", "imse-rot")) {
     case_name <- paste0("bw_", selector)
     observed <- as.data.frame(lpbwdensity(data, grid = seq(0, 4, 1), bwselect = selector)$BW)
+    expect_baseline_case(observed, expected, case_name, tolerance = 1e-6)
+
+    case_name <- paste0("weighted_bw_", selector)
+    observed <- as.data.frame(lpbwdensity(
+      data,
+      grid = seq(0, 4, 1),
+      bwselect = selector,
+      Cweights = weights$Cweights,
+      Pweights = weights$Pweights
+    )$BW)
     expect_baseline_case(observed, expected, case_name, tolerance = 1e-6)
   }
 })

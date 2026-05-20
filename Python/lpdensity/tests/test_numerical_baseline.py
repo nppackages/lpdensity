@@ -50,11 +50,20 @@ def test_lpdensity_broad_numerical_baseline():
 
 def test_lpbwdensity_broad_numerical_baseline():
     data = _baseline_data()
+    cweights, pweights = _weights()
     expected = pd.read_csv(FIXTURES / "lpbwdensity-baseline-broad.csv")
 
+    cases = {}
     for selector in ["mse-dpi", "imse-dpi", "mse-rot", "imse-rot"]:
-        case = f"bw_{selector}"
-        observed = lpbwdensity(data, grid=np.arange(0, 5), bwselect=selector).table
+        cases[f"bw_{selector}"] = {"bwselect": selector}
+        cases[f"weighted_bw_{selector}"] = {
+            "bwselect": selector,
+            "Cweights": cweights,
+            "Pweights": pweights,
+        }
+
+    for case, kwargs in cases.items():
+        observed = lpbwdensity(data, grid=np.arange(0, 5), **kwargs).table
         case_expected = expected.loc[expected["case"] == case, observed.columns]
         np.testing.assert_allclose(
             observed.to_numpy(dtype=float),
