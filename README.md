@@ -21,7 +21,7 @@ To install/update in R type:
 ```
 install.packages('lpdensity')
 ```
-- Help: [R Manual](R/lpdensity.pdf), [CRAN repository](https://cran.r-project.org/package=lpdensity).
+- Help: [R Manual](https://cran.r-project.org/web/packages/lpdensity/lpdensity.pdf), [CRAN repository](https://cran.r-project.org/package=lpdensity).
 
 - Replication: [R-script](R/lpdensity_illustration.R).
 

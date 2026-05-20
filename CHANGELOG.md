@@ -15,3 +15,4 @@ Notable project changes are listed from newest to oldest.
 - Improved bandwidth-selection internals in Python, R, and Stata, including cached/reused moment calculations and a Stata ROT/IROT weight-ordering fix while preserving existing numerical baselines.
 - Expanded Python, R, and Stata bandwidth-selection baselines to cover weighted DPI and ROT selectors, and reduced repeated local subsample work in Stata DPI bandwidth calculations.
 - Verified package illustration and Stata help examples, updated illustration scripts to run from a clean local checkout, and refreshed R plotting code for current ggplot2 line-width conventions.
+- Cleaned Python and R package trees by removing generated build artifacts, cached bytecode, obsolete Sphinx documentation output, old R manual/build artifacts, and old ad hoc comparison files while keeping source files, examples, and numerical baselines.
