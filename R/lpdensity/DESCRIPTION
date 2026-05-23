@@ -1,8 +1,8 @@
 Package: lpdensity
 Type: Package
 Title: Local Polynomial Density Estimation and Inference
-Date: 2026-05-20
-Version: 3.0
+Date: 2026-05-23
+Version: 3.0.1
 Authors@R: c(
     person("Matias D.", "Cattaneo", email = "matias.d.cattaneo@gmail.com", role = c("aut", "cre")),
     person("Michael", "Jansson", email = "michael.jansson.berkeley@gmail.com", role = "aut"),

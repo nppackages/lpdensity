@@ -2,6 +2,11 @@
 
 Notable project changes are listed from newest to oldest.
 
+## 2026-05-23 - CRAN Patch Release
+
+- Bumped package versions for the CRAN patch release: Python `3.0.1`, R `3.0.1`, and Stata `3.0.1`.
+- Relaxed only the endpoint-sensitive `nh`/`nhu` count checks in R data-driven bandwidth numerical baselines to allow one-observation variation on Apple Silicon while preserving strict comparisons for bandwidths and estimates.
+
 ## 2026-05-20 - Package Modernization
 
 - Modernized release and repository infrastructure following the BINSREG setup, including GitHub Actions CI, Dependabot configuration, issue templates, pull request template, security policy, and Python PyPI publishing through GitHub trusted publishing.
