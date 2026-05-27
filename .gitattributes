@@ -22,6 +22,7 @@ DESCRIPTION text eol=lf
 NAMESPACE text eol=lf
 
 *.dta binary
+*.mlib binary
 *.mo binary
 *.pdf binary
 *.png binary

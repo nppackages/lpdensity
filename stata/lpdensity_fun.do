@@ -4,6 +4,23 @@
 ********************************************************************************
 *!version 3.0.1 2026-05-23
 
+version 16.0
+
+mata: mata clear
+
+********************************************************************************
+* mlib availability check
+********************************************************************************
+capture mata mata drop lpdensity_mlib_loaded()
+
+mata
+real scalar lpdensity_mlib_loaded()
+{
+	return(1)
+}
+mata mosave lpdensity_mlib_loaded(), replace
+end
+
 ** do lpdensity_fn.ado
 
 capture mata mata drop lpdensity_fn()
@@ -1474,3 +1491,10 @@ void lpdensity_optFunc(todo, h, mat1, mat2, p, v, bwselect, fn, gn, hn) {
 }
 mata mosave lpdensity_optFunc(), replace
 end
+
+if "`lpdensity_loadonly'" != "1" {
+	capture erase lpdensity.mlib
+	mata: mata mlib create lpdensity, replace
+	mata: mata mlib add lpdensity lpdensity_*()
+	mata: mata mlib index
+}

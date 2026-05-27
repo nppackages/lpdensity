@@ -7,6 +7,7 @@
 capture program drop lpbwdensity
 
 program define lpbwdensity, eclass
+version 16.0
 syntax 	varlist(max=1) 				///
 									///
 		[if] [in] [, 				///
@@ -31,6 +32,20 @@ syntax 	varlist(max=1) 				///
 		]
 	
 marksample touse
+
+if "$LPDENSITY_MLIB_INDEXED" != "1" {
+	tempname lpdensity_mlib_ok
+	capture quietly mata: mata mlib index
+	capture quietly mata: st_numscalar("`lpdensity_mlib_ok'", lpdensity_mlib_loaded())
+	if !_rc {
+		global LPDENSITY_MLIB_INDEXED 1
+	}
+	else {
+		local lpdensity_loadonly 1
+		quietly findfile lpdensity_fun.do
+		quietly do "`r(fn)'"
+	}
+}
 
 ********************************************************************************
 **** error check: precision()
